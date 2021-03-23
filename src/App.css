@@ -44,21 +44,51 @@
 } */
 
 .note {
-  /* background-color: grey; */
-  border-radius: 4px;
+  border-radius: 5px;
   height: 4em;
   width: 6em;
   border-style: solid;
   border-width: 1px;
   border-color:lightgray;
-  /* box-sizing: border-box; */
   margin: 2px;
   outline: none;
 }
 
-/* .note-is-active{
-  border: 1px solid #44693D
-} */
+.note-is-active{
+  border: 1px solid black
+}
+
+.play-button {
+  height: 3.5em;
+  border-width: 1px;
+  margin: 2px;
+  outline: none;
+  border-radius: 5px
+}
+
+.play-button-playing{
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: red;
+}
+
+.play-button-stopped{
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: grey;
+}
+
+.on-beat {
+  border: 2px solid green
+}
+
+.tempo-slider{
+  height: 2em;
+}
+
+.tempo-display{
+  height: 2em;
+}
 
 #noisemaker {
   display: block;
