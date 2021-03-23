@@ -115,7 +115,7 @@ class NoiseMaker extends Component {
           return(
             <Note 
             color={colors[rowIndex]} 
-            className={classNames("note", {"on-beat": this.state.beat === noteIndex}, {"note-is-active": !!isActive})} 
+            className={classNames("note", {"on-beat": this.state.beat === (noteIndex + 1) % 8}, {'note-is-active': isActive})} 
             key={noteIndex + note} 
             isActive={isActive} 
             note={note} 
@@ -125,10 +125,11 @@ class NoiseMaker extends Component {
         })}
       </div>
     })
+
     return grid
   }
 
-  togglePlay = async () => {
+  togglePlay = () => {
     if(!this.state.activated){
       Tone.start()
       this.setState({activated: true, playing: true})
@@ -154,11 +155,41 @@ class NoiseMaker extends Component {
   render(){
     return(
       <div className="tones">
+
+        {/* Sequencer Buttons */}
         {this.renderGrid()}
-        <br />
-        <button onClick={this.togglePlay}>{this.state.playing ? 'Stop' : 'Start'}</button>
-        <input type="range" min={40} max={200} step={1} value={this.state.tempo} onChange={this.handleTempoChange}></input>
-        <p>{this.state.tempo}</p>
+
+        {/* Stop/Start button */}
+        <button 
+        className={
+          classNames(
+            'button',
+            'is-rounded',
+            'play-button', 
+            {'play-button-playing': this.state.playing},
+            {'play-button-stopped': !this.state.playing}
+          )
+        } 
+        onClick={this.togglePlay}>
+          {this.state.playing ? 'Stop' : 'Start'}
+        </button>
+
+        {/* Adjust Tempo */}
+        <input 
+        className="tempo-slider" 
+        type="range" 
+        min={40} 
+        max={200} 
+        step={1} 
+        value={this.state.tempo} 
+        onChange={this.handleTempoChange}/>
+
+        {/* Display Tempo */}
+        <p 
+        className="tempo-display">
+          {this.state.tempo}
+        </p>
+
       </div>
     )
   }
