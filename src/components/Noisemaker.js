@@ -11,7 +11,82 @@ class NoiseMaker extends Component {
     synths: NoiseMaker.makeSynths(),
     rows: NoiseMaker.makeGrid(),
     beat: 0,
-    tempo: 120
+    tempo: 120,
+    recorder: null,
+    chunks: [],
+    blob: null,
+    isRecording: false
+  }
+
+  componentDidMount(){
+    this.setState({recorder: this.makeRecorder()})
+  }
+
+
+  makeRecorder = () => {
+    const ctx = Tone.context;
+    const dest = ctx.createMediaStreamDestination();
+
+    this.state.synths.forEach(synth => {
+      synth.connect(dest)
+    })
+
+    const recorder = new MediaRecorder(dest.stream, {type: 'audio/mpeg'});
+    recorder.ondataavailable = e => {
+      console.log('inside ondataavailable funciton!')
+      this.setState({blob: e.data}, () => {
+        console.log(this.state.blob)
+        this.displayBlob()
+      })
+    }
+
+    recorder.onstop = e => {
+
+      console.log('inside onstop function!')
+
+      // console.log("data available after MediaRecorder.stop() called.")
+      // console.log(this.state.chunks)
+      // debugger
+      // let blob = new Blob(this.state.chunks, {type: 'audio/mpeg'})
+      // this.setState({
+      //   blob: blob,
+      //   chunks: []
+      // }, console.log(`Blob is:` + this.state.blob))
+    }
+
+    return recorder
+  }
+
+  toggleRecording = (e) => {
+    this.state.isRecording ? this.stopRecording(e) : this.startRecording(e)
+  }
+
+  startRecording = (e) => {
+    e.target.innerHTML = 'Stop Recording'
+    this.state.recorder.start()
+    console.log('recording started')
+    console.log(this.state.recorder.state)
+    this.setState({isRecording: true})
+  }
+
+  displayBlob = () => {
+    const audio = document.getElementById('audio-track')
+    const media = URL.createObjectURL(this.state.blob)
+    audio.src = media;
+  }
+
+  stopRecording = async (e) => {
+    e.target.innerHTML = "Start Recording";
+    await this.state.recorder.stop();
+
+    console.log('recording stopped');
+    console.log(this.state.recorder.state)
+    console.log(this.state.blob)
+
+    // const audio = document.getElementById('audio-track');
+    // const media = URL.createObjectURL(this.state.blob)
+    // audio.src = media;
+    this.setState({isRecording: false})
   }
 
   static makeSynths = () => {
@@ -46,7 +121,7 @@ class NoiseMaker extends Component {
 
     for(const note of notes){
       const row = []
-      for(let i = 0; i < 8; i++){
+      for(let i = 0; i < 16; i++){
         row.push({note: note, isActive: false})
       }
       rows.push(row)
@@ -69,7 +144,7 @@ class NoiseMaker extends Component {
         }
       })
 
-      this.setState({beat: (this.state.beat + 1) % 8})
+      this.setState({beat: (this.state.beat + 1) % 16})
     }
 
     Tone.Transport.bpm.value = this.state.tempo
@@ -115,7 +190,7 @@ class NoiseMaker extends Component {
           return(
             <Note 
             color={colors[rowIndex]} 
-            className={classNames("note", {"on-beat": this.state.beat === (noteIndex + 1) % 8}, {'note-is-active': isActive})} 
+            className={classNames("note", {"on-beat": this.state.beat === (noteIndex + 1) % 16}, {'note-is-active': isActive})} 
             key={noteIndex + note} 
             isActive={isActive} 
             note={note} 
@@ -189,7 +264,8 @@ class NoiseMaker extends Component {
         className="tempo-display">
           {this.state.tempo}
         </p>
-
+        <button id="record-button" onClick={this.toggleRecording} className="button is-rounded" >Record</button>
+        <audio id="audio-track" controls></audio>
       </div>
     )
   }
