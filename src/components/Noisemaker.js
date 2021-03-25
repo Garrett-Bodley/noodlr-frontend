@@ -25,18 +25,7 @@ class NoiseMaker extends Component {
       synth.connect(dest)
     })
 
-    const recorder = new MediaRecorder(dest.stream, {type: 'audio/wav'});
-    recorder.ondataavailable = e => {
-      console.log('inside ondataavailable function! type is audio/wav')
-      console.log(e.data)
-      this.setState({blob: e.data}, () => {
-        this.displayBlob()
-      })
-    }
-
-    recorder.onstop = e => {
-      console.log('inside onstop function!')
-    }
+    const recorder = new MediaRecorder(dest.stream);
 
     return recorder
   }
