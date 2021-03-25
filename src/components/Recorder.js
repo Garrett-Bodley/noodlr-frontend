@@ -5,7 +5,28 @@ class Recorder extends Component {
 
   state = {
     isRecording: false,
-    blob: null
+    recorder: this.props.recorder,
+    chunks: []
+  }
+
+  configRecorder = (recorder) => {
+
+    const updatedRecorder = this.state.recorder
+
+    updatedRecorder.ondataavailable = e => {
+      console.log('inside ondataavailable function! type is audio/wav')
+      console.log(e.data)
+      this.setState({chunks: [...this.state.chunks, e.data]}, () => {
+        console.log(this.state.chunks)
+        this.displayBlob()
+      })
+    }
+
+    return updatedRecorder
+  }
+
+  componentDidMount(){
+    this.setState({recorder: this.configRecorder(this.state.recorder)})
   }
 
   toggleRecording = (e) => {
@@ -14,27 +35,28 @@ class Recorder extends Component {
 
   startRecording = (e) => {
     e.target.innerHTML = 'Stop Recording'
-    this.props.recorder.start()
+    this.state.recorder.start()
     console.log('recording started')
-    console.log(this.props.recorder.state)
+    console.log(this.state.recorder.state)
     this.setState({isRecording: true})
   }
 
   stopRecording = async (e) => {
     e.target.innerHTML = "Start Recording";
-    await this.props.recorder.stop();
-
-    console.log('recording stopped');
-    console.log(this.props.recorder.state)
-    console.log(this.state.blob)
-
+    await this.state.recorder.stop();
     this.setState({isRecording: false})
   }
 
   displayBlob = () => {
     const audio = document.getElementById('audio-track')
-    const media = this.state.blob
+
+    const mp3 = new Blob(this.state.chunks, { 'type': 'audio' })
+    const media = URL.createObjectURL(mp3)
     audio.src = media;
+  }
+
+  saveRecording = () => {
+    
   }
 
   render(){
@@ -42,6 +64,7 @@ class Recorder extends Component {
       <div id="recorder">
         <button id="record-button" onClick={this.toggleRecording} className="button is-rounded" >Record</button>
         <audio style={{margin: 'auto'}} id="audio-track" controls></audio>
+        <button id="save-recording" onClick={this.saveRecording}>Save Recording</button>
       </div>
     )
   }
