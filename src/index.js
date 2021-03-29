@@ -12,6 +12,7 @@ require('dotenv').config()
 // const store = createStore()
 
 console.log(process.env.SUBMIT_URL)
+const store = createStore()
 
 ReactDOM.render(
   <React.StrictMode>
