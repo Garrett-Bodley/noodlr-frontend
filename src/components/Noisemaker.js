@@ -11,7 +11,7 @@ class NoiseMaker extends Component {
     activated: false,
     playing: false,
     synths: NoiseMaker.makeSynths(),
-    rows: NoiseMaker.makeGrid(),
+    grid: NoiseMaker.makeGrid(),
     beat: 0,
     tempo: 120,
     blob: null,
@@ -77,7 +77,7 @@ class NoiseMaker extends Component {
     const repeat = (time) => {
       let beat = this.state.beat
 
-      this.state.rows.forEach( (row, index) => {
+      this.state.grid.forEach( (row, index) => {
         let synth = this.state.synths[index]
         let note = row[beat]
         if (note.isActive){
@@ -95,7 +95,7 @@ class NoiseMaker extends Component {
   }
 
   handleOnClick = (clickedRowIndex, clickedNoteIndex) => {
-    let newRows = this.state.rows.map((row, rowIndex) => {
+    let newRows = this.state.grid.map((row, rowIndex) => {
       return row.map((note, noteIndex) => {
         let newNote = note;
         if(clickedRowIndex === rowIndex && clickedNoteIndex === noteIndex){
@@ -125,8 +125,8 @@ class NoiseMaker extends Component {
     ]
 
     
-    let grid = this.state.rows.map((row, rowIndex) => {
-      return <div key={rowIndex}>
+    let grid = this.state.grid.map((row, rowIndex) => {
+      return <div key={rowIndex} className="note-row">
         {row.map(({note, isActive}, noteIndex) => {
           return(
             <Note 
@@ -167,6 +167,35 @@ class NoiseMaker extends Component {
     Tone.Transport.bpm.rampTo(e.target.value, .5)
   }
 
+  makeFormData = () => {
+
+  }
+
+  constructConfigObj = (blob) => {
+    console.log('constructing configObj!')
+    const formData = new FormData()
+    formData.append('recording', blob)
+
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Accept": "application/json"
+      },
+      body: formData
+    }
+
+    return configObj
+  }
+
+  saveRecording = (blob) => {
+    const configObj = this.constructConfigObj(blob)
+
+    console.log('about to fetch')
+    fetch('http://localhost:3001/noodles', configObj).then(resp => resp.json()).then(json => console.log(json))
+    console.log('fetch completed')
+    
+  }
+
 
   render(){
     return(
@@ -205,7 +234,8 @@ class NoiseMaker extends Component {
         className="tempo-display">
           {this.state.tempo}
         </p>
-        <Recorder recorder={this.makeRecorder()} />
+        <Recorder saveRecording={this.saveRecording} recorder={this.makeRecorder()} />
+        
       </div>
     )
   }
