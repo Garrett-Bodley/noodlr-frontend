@@ -14,12 +14,7 @@ class Recorder extends Component {
     const updatedRecorder = this.state.recorder
 
     updatedRecorder.ondataavailable = e => {
-      console.log('inside ondataavailable function! type is audio/wav')
-      console.log(e.data)
-      this.setState({chunks: [...this.state.chunks, e.data]}, () => {
-        console.log(this.state.chunks)
-        this.displayBlob()
-      })
+      this.setState({chunks: [...this.state.chunks, e.data]}, this.displayBlob)
     }
 
     return updatedRecorder
@@ -36,8 +31,6 @@ class Recorder extends Component {
   startRecording = (e) => {
     e.target.innerHTML = 'Stop Recording'
     this.state.recorder.start()
-    console.log('recording started')
-    console.log(this.state.recorder.state)
     this.setState({isRecording: true})
   }
 
@@ -47,16 +40,16 @@ class Recorder extends Component {
     this.setState({isRecording: false})
   }
 
+  chunksToBlob = () => {
+    return new Blob(this.state.chunks, { 'type': 'audio' })
+  }
+
   displayBlob = () => {
     const audio = document.getElementById('audio-track')
 
-    const mp3 = new Blob(this.state.chunks, { 'type': 'audio' })
-    const media = URL.createObjectURL(mp3)
+    const recording = new Blob(this.state.chunks, { 'type': 'audio' })
+    const media = URL.createObjectURL(recording)
     audio.src = media;
-  }
-
-  saveRecording = () => {
-    
   }
 
   render(){
@@ -64,7 +57,7 @@ class Recorder extends Component {
       <div id="recorder">
         <button id="record-button" onClick={this.toggleRecording} className="button is-rounded" >Record</button>
         <audio style={{margin: 'auto'}} id="audio-track" controls></audio>
-        <button id="save-recording" onClick={this.saveRecording}>Save Recording</button>
+        <button id="save-recording" className="button is-rounded" onClick={() => this.props.saveRecording(this.chunksToBlob())}>Save Recording</button>
       </div>
     )
   }
