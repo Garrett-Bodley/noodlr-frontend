@@ -1,12 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-import { Provider } from 'react-redux'
 import NoisemakerContainer from './containers/NoisemakerContainer'
+import UsersContainer from './containers/UsersContainer'
 
 function App() {
+  // console.log(SUBMIT_URL)
   return (
     <div className="App">
-      <NoisemakerContainer />
+      {/* <NoisemakerContainer /> */}
+      <UsersContainer />
     </div>
   );
 }
