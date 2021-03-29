@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
 }
 
 .App-logo {
@@ -34,10 +34,16 @@
     /* min-width: 35em; */
 
     display: grid;
+    /* grid-auto-flow: column; */
     grid-template-rows: repeat(10, 1fr);
     grid-template-columns: fit-content;
     /* width: 90%; */
     margin: auto;
+}
+
+.note-row{
+  display: inline-block;
+  white-space: nowrap;
 }
 
 /* .tone-column{
@@ -92,10 +98,19 @@
   height: 2em;
 }
 
+.audio-track{
+  vertical-align: middle;
+}
+
 #noisemaker {
   display: block;
   border: 1px solid black;
   width: 50em
+}
+
+.recorder{
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .App-header {
