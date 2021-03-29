@@ -4,6 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import {createStore, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk'
+
+require('dotenv').config()
+
+const store = createStore()
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
