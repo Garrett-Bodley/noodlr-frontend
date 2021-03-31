@@ -6,15 +6,17 @@ import reportWebVitals from './reportWebVitals';
 
 import {createStore, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
+import { Provider } from 'react-redux'
+import { manageVamps } from './reducers/manageVamps'
+import { manageCurrentUser } from './reducers/manageCurrentUser'
 
-// const store = createStore()
-
-console.log(process.env.SUBMIT_URL)
-const store = createStore()
+const store = createStore(manageCurrentUser, applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store} >
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
