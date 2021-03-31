@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import * as Tone from 'tone'
+import './Noisemaker.css'
 
 import classNames from 'classnames/bind'
 import Recorder from './Recorder'
@@ -171,7 +172,7 @@ class NoiseMaker extends Component {
 
   }
 
-  constructConfigObj = (blob) => {
+  constructAudioConfigObj = (blob) => {
     console.log('constructing configObj!')
     const formData = new FormData()
     formData.append('recording', blob)
@@ -188,12 +189,34 @@ class NoiseMaker extends Component {
   }
 
   saveRecording = (blob) => {
-    const configObj = this.constructConfigObj(blob)
+    const configObj = this.constructAudioConfigObj(blob)
 
     console.log('about to fetch')
     fetch('http://localhost:3001/noodles', configObj).then(resp => resp.json()).then(json => console.log(json))
     console.log('fetch completed')
     
+  }
+
+  constructVampConfigObj = () => {
+    const formData = new FormData()
+    const grid = JSON.stringify(this.state.grid)
+    formData.append('notation', grid)
+    debugger
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Accept": "application/json"
+      },
+      body: formData
+    }
+
+    return configObj
+  }
+
+  saveVamp = () => {
+    const configObj = this.constructVampConfigObj()
+    console.log(configObj)
+    this.props.createVamp(configObj)
   }
 
 
@@ -234,7 +257,8 @@ class NoiseMaker extends Component {
         className="tempo-display">
           {this.state.tempo}
         </p>
-        <Recorder saveRecording={this.saveRecording} recorder={this.makeRecorder()} />
+        <button className="button is-rounded" onClick={this.saveVamp}>Save Vamp</button>
+        {/* <Recorder saveRecording={this.saveRecording} recorder={this.makeRecorder()} /> */}
         
       </div>
     )
