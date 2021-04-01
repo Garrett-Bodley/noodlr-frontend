@@ -4,13 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import {createStore, applyMiddleware} from 'redux'
+import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
-import { manageVamps } from './reducers/manageVamps'
-import { manageCurrentUser } from './reducers/manageCurrentUser'
+import { vampReducer } from './reducers/vampReducer'
+import { authReducer } from './reducers/authReducer'
 
-const store = createStore(manageCurrentUser, applyMiddleware(thunk))
+const rootReducer = combineReducers({vampReducer, authReducer})
+
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>
