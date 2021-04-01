@@ -1,5 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
+import { Component } from 'react'
 import NoisemakerContainer from './containers/NoisemakerContainer'
 import UsersContainer from './containers/UsersContainer'
 import {
@@ -9,14 +9,28 @@ import {
   Link
 } from "react-router-dom";
 
-function App() {
-  // console.log(SUBMIT_URL)
-  return (
-    <Router >
-      <Route exact path={['/login', '/signup']} component={UsersContainer} />
-      <Route exact path={['/noodlr', '/']} component={NoisemakerContainer} />
-    </Router>
-  );
+class App extends Component{
+
+  componentDidMount(){
+
+  }
+
+  componentDidUpdate(){
+
+  }
+
+  render(){
+    return (
+      <Router >
+        <Route exact path={['/login', '/signup']} component={UsersContainer} />
+        <Route exact path={['/noodlr', '/']} component={NoisemakerContainer} />
+      </Router>
+    );
+  }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  Auth: 
+})
 
 export default App;
