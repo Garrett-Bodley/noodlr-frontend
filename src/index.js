@@ -9,10 +9,11 @@ import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import { vampReducer } from './reducers/vampReducer'
 import { authReducer } from './reducers/authReducer'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const rootReducer = combineReducers({vampReducer, authReducer})
 
-const store = createStore(rootReducer, applyMiddleware(thunk))
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
 ReactDOM.render(
   <React.StrictMode>
