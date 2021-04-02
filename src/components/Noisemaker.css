@@ -74,8 +74,18 @@
   height: 2em;
 }
 
-.tempo-display{
+.volume-slider{
   height: 2em;
+}
+
+.volume-display{
+  margin:auto;
+  height: 1em
+}
+
+.tempo-display{
+  margin: auto;
+  height: 1em
 }
 
 .audio-track{
@@ -90,5 +100,5 @@
 
 .recorder{
   display: table-cell;
-  vertical-align: middle;
+  vertical-align: middle
 }
