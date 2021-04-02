@@ -11,12 +11,18 @@ class Login extends Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
+  handleOnSubmit = (e) => {
+    e.preventDefault();
+    e.target.reset();
+    this.props.loginPostFetch(this.state)
+  }
+
   render(){
     return(
   
       <div id="login" className="container card box">
         <h2 className="is-size-2">Login</h2>
-        <form onChange={this.handleOnChange} >
+        <form onSubmit={this.handleOnSubmit} onChange={this.handleOnChange} >
           <div className="field">
             <label>Username:</label>
             <div className="control">
