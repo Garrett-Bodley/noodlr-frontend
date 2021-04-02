@@ -21,8 +21,10 @@ class Login extends Component {
     return(
   
       <div id="login" className="container card box">
-        <h2 className="is-size-2">Login</h2>
         <form onSubmit={this.handleOnSubmit} onChange={this.handleOnChange} >
+          <div className="field">
+            <h2 className="is-size-2">Login</h2>
+          </div>
           <div className="field">
             <label>Username:</label>
             <div className="control">
@@ -36,11 +38,9 @@ class Login extends Component {
             </div>
           </div>
           <div className="field">
-            <button type="submit">Submit</button>
+            <button className="button is-link" type="submit">Submit</button>
           </div>
         </form>
-        <p>{this.state.username}</p>
-        <p>{this.state.password}</p>
       </div>
     )
   }
