@@ -8,29 +8,31 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { connect } from 'react-redux';
+import { getUser } from './actions/authActions'
 
 class App extends Component{
 
   componentDidMount(){
-
+    this.props.getUser()
   }
 
   componentDidUpdate(){
-
+    this.props.getUser()
   }
 
   render(){
     return (
       <Router >
-        <Route exact path={['/login', '/signup']} component={UsersContainer} />
-        <Route exact path={['/noodlr', '/']} component={NoisemakerContainer} />
+        <Route exact path={['/login', '/signup']} render={() => <UsersContainer getUser={this.props.getUser} /> } />
+        <Route exact path={['/noodlr', '/']} render={() => <NoisemakerContainer getUser={this.props.getUser} /> }/>
       </Router>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  Auth: 
+  getUser: () => dispatch(getUser())
 })
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);
