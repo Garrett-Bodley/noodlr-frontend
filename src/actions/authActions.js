@@ -66,7 +66,7 @@ const setUserToken = ({user, token}) => {
   localStorage.setItem("lastLoginTime", new Date(Date.now()).getTime());
 };
 
-const getToken = () => {
+export const getToken = () => {
   const now = new Date(Date.now()).getTime();
   const thirtyMinutes = 1000 * 60 * 30;
   const timeSinceLastLogin = now - localStorage.getItem("lastLoginTime");
@@ -76,11 +76,9 @@ const getToken = () => {
 };
 
 export const getUser = () => {
-  const now = new Date(Date.now()).getTime();
-  const thirtyMinutes = 1000 * 60 * 30;
-  const timeSinceLastLogin = now - localStorage.getItem("lastLoginTime");
-  if (timeSinceLastLogin < thirtyMinutes) {
-    const user = JSON.parse(localStorage.getItem("user"))
+  const token = getToken()
+  const user = JSON.parse(localStorage.getItem("user"))
+  if (token && user) {
     return (dispatch) => dispatch({type: "AUTHENTICATION_PERSISTED", payload: user})
   }else{
     localStorage.removeItem("token")
