@@ -28,7 +28,7 @@ export const createNewUser = (user) => {
   }
 }
 
-export const loginPostFetch = (user) => {
+export const loginUser = (user) => {
   const configObj = {
     method: "POST",
     headers: {
