@@ -54,6 +54,12 @@ export const loginUser = (user) => {
   }
 }
 
+export const logoutUser = () => {
+  localStorage.removeItem('user')
+  localStorage.removeItem('token')
+  return dispatch => dispatch({type: "CLIENT_LOGOUT"})
+}
+
 const setUserToken = ({user, token}) => {
   localStorage.setItem("token", token);
   localStorage.setItem('user', JSON.stringify(user))
