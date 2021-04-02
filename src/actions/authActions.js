@@ -41,8 +41,8 @@ export const loginUser = (user) => {
     fetch(SUBMIT_URL + '/login', configObj).then(resp => {
       if(resp.ok){
         return resp.json().then(json => {
-          debugger
-          return dispatch({type: 'AUTHENTICATED', payload: json})
+          setUserToken(json)
+          return dispatch({type: 'AUTHENTICATED', payload: json.user})
         })
       }else{
         return resp.json().then(errors => {
@@ -79,5 +79,6 @@ export const getUser = () => {
   }else{
     localStorage.removeItem("token")
     localStorage.removeItem("user")
+    return (dispatch) => dispatch({type: "AUTHENTICATION_NOT_PERSISTED"})
   }
 }
