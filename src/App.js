@@ -2,11 +2,11 @@ import './App.css';
 import { Component } from 'react'
 import NoisemakerContainer from './containers/NoisemakerContainer'
 import UsersContainer from './containers/UsersContainer'
+import Navbar from './components/Navbar'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import { connect } from 'react-redux';
 import { getUser } from './actions/authActions'
@@ -24,6 +24,7 @@ class App extends Component{
   render(){
     return (
       <Router >
+        <Navbar />
         <Route exact path={['/login', '/signup']} render={() => <UsersContainer getUser={this.props.getUser} /> } />
         <Route exact path={['/noodlr', '/']} render={() => <NoisemakerContainer getUser={this.props.getUser} /> }/>
       </Router>
