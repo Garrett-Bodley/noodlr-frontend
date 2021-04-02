@@ -10,10 +10,10 @@ class Navbar extends Component{
       return (
         <div className="navbar-end">
           <div className="navbar-item is-hoverable">
-            <Link to={`/users/${this.props.currentUser.id}`}>Profile</Link>
+            <Link className="subtitle" to={`/users/${this.props.currentUser.id}`}>Profile</Link>
           </div>
           <div className="navbar-item is-hoverable">
-            <Link to="/login" onClick={this.props.logoutUser}>Log Out</Link>
+            <Link className="subtitle" to="/login" onClick={this.props.logoutUser}>Log Out</Link>
           </div>
         </div>
       )
@@ -21,10 +21,10 @@ class Navbar extends Component{
       return(
         <div className="navbar-end">
           <div className="navbar-item is-hoverable">
-            <Link to="/login">Login</Link>
+            <Link className="subtitle" to="/login">Login</Link>
           </div>
           <div className="navbar-item is-hoverable">
-            <Link to="/signup" >Sign Up</Link>
+            <Link className="subtitle" to="/signup" >Sign Up</Link>
           </div>
         </div>
       )
