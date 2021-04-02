@@ -14,8 +14,10 @@ export const createNewUser = (user) => {
   return (dispatch) => {
     fetch(SUBMIT_URL + '/users', configObj).then(resp => {
       if(resp.ok){
-        setToken(resp.headers.get("Authorization"))
-        return resp.json().then(json => dispatch({type: 'AUTHENTICATED', payload: json}))
+        return resp.json().then((json) => {
+          setUserToken(json)
+          return dispatch({type: 'AUTHENTICATED', payload: json.user})
+        })
       }else{
         return resp.json().then(errors => {
           dispatch({type: 'NOT_AUTHENTICATED'})
@@ -36,23 +38,25 @@ export const loginPostFetch = (user) => {
     body: JSON.stringify({user})
   }
   return (dispatch) => {
-    fetch(SUBMIT_URL + '/login', configObj).then(resp => resp.json()).then(json => {
-      localStorage.setItem('token', json.token)
-      dispatch(loginUser(json))
+    fetch(SUBMIT_URL + '/login', configObj).then(resp => {
+      if(resp.ok){
+        return resp.json().then(json => {
+          debugger
+          return dispatch({type: 'AUTHENTICATED', payload: json})
+        })
+      }else{
+        return resp.json().then(errors => {
+          dispatch({type: 'NOT_AUTHENTICATED'})
+          return Promise.reject(errors)
+        })
+      }
     })
   }
 }
 
-export const loginUser = (payload) => {
-  return {type: "LOGIN", payload: payload}
-}
-
-export const logOutUser = () => {
-  return {type: 'LOGOUT'}
-}
-
-const setToken = (token) => {
+const setUserToken = ({user, token}) => {
   localStorage.setItem("token", token);
+  localStorage.setItem('user', JSON.stringify(user))
   localStorage.setItem("lastLoginTime", new Date(Date.now()).getTime());
 };
 
@@ -64,3 +68,16 @@ const getToken = () => {
     return localStorage.getItem("token");
   }
 };
+
+export const getUser = () => {
+  const now = new Date(Date.now()).getTime();
+  const thirtyMinutes = 1000 * 60 * 30;
+  const timeSinceLastLogin = now - localStorage.getItem("lastLoginTime");
+  if (timeSinceLastLogin < thirtyMinutes) {
+    const user = JSON.parse(localStorage.getItem("user"))
+    return (dispatch) => dispatch({type: "AUTHENTICATION_PERSISTED", payload: user})
+  }else{
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+  }
+}
