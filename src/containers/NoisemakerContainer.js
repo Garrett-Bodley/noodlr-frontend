@@ -20,7 +20,7 @@ class NoisemakerContainer extends Component {
 // }
 
 const mapDispatchToProps = (dispatch) => ({
-  createVamp: () => dispatch(createVamp)
+  createVamp: (configObj) => dispatch(createVamp(configObj))
 })
 
 export default connect(null, mapDispatchToProps)(NoisemakerContainer)
