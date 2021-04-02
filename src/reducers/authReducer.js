@@ -17,6 +17,11 @@ export const authReducer = (state = {loggedIn: false, authChecked: false, curren
         loggedIn: true,
         currentUser: action.payload
       })
+    case "AUTHENTICATION_NOT_PERSISTED":
+      return { ...state,
+        loggedIn: false,
+        currentUser: {}
+      }
     default:
       return state
   }
