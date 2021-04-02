@@ -22,7 +22,6 @@ class UsersContainer extends Component {
       </div>
     )
   }
-
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -32,8 +31,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   state: state,
-  loggedIn: state.authReducer.loggedIn,
-  current_user: state.authReducer.current_user
+  loggedIn: state.auth.loggedIn,
+  current_user: state.auth.current_user
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
