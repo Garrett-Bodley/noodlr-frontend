@@ -27,9 +27,9 @@ class App extends Component{
       <Router >
         <Navbar />
         <br/>
-        <Route exact path={['/login', '/signup']} render={() => <AuthContainer getUser={this.props.getUser} /> } />
-        <Route exact path={['/noodlr', '/']} render={() => <NoisemakerContainer getUser={this.props.getUser} /> }/>
-        <Route path='/users' render={() => <UserContainer getUser={this.props.getUser} /> } />
+        <Route exact path={['/login', '/signup']} render={() => <AuthContainer/> } />
+        <Route exact path={['/noodlr', '/']} render={() => <NoisemakerContainer/> }/>
+        <Route path='/users' render={() => <UserContainer/> } />
         <br/>
         <br/>
       </Router>
