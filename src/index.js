@@ -11,7 +11,7 @@ import { vampReducer } from './reducers/vampReducer'
 import { authReducer } from './reducers/authReducer'
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const rootReducer = combineReducers({vampReducer, authReducer})
+const rootReducer = combineReducers({vamp: vampReducer, auth: authReducer})
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
