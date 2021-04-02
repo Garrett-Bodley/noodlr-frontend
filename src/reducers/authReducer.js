@@ -1,11 +1,22 @@
-export const authReducer = (state = {current_user: null, loggedIn: false}, action) => {
+export const authReducer = (state = {loggedIn: false, authChecked: false, currentUser: {}}, action) => {
   switch(action.type){
-    case "LOGIN":
-      const { user_id, token } = action.payload
-      localStorage.setItem('token', token)
-      return {...state, current_user: user_id, loggedIn: true}
-    case "LOGOUT":
-      return {...state, current_user: null, loggedIn: false}
+    case "AUTHENTICATED":
+      return ({...state,
+        authChecked: true,
+        loggedIn: true,
+        currentUser: action.payload,
+      })
+    case "NOT_AUTHENTICATED":
+      return ({...state,
+        authChecked: true,
+        loggedIn: false
+      })
+    case "AUTHENTICATION_PERSISTED":
+      return ({...state,
+        authChecked: false,
+        loggedIn: true,
+        currentUser: action.payload
+      })
     default:
       return state
   }
