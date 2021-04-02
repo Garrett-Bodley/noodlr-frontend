@@ -11,29 +11,13 @@ import {
 
 class UsersContainer extends Component {
 
-  handleFormSubmit = () => {
-    
-  }
-
-  componentDidMount(){
-    this.props.getUser()
-    console.log('State: ')
-    console.log(this.props.getUser)
-  }
-
-  componentDidUpdate(){
-    this.props.getUser()
-    console.log('State: ')
-    console.log(this.props.state)
-  }
-
   render(){
     return(
       <div className="container" id="users">
         <Switch>
           {this.props.loggedIn ? <Redirect to='/noodlr' /> : null}
           <Route path='/signup' render={() => <SignUp createNewUser={this.props.createNewUser}/>} />
-          <Route path='/login' render={() => <Login loginPostFetch={this.props.loginPostFetch} /> } />
+          <Route path='/login' render={() => <Login loginUser={this.props.loginUser} /> } />
         </Switch>
       </div>
     )
