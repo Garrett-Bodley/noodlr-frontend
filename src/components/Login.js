@@ -14,7 +14,7 @@ class Login extends Component {
   handleOnSubmit = (e) => {
     e.preventDefault();
     e.target.reset();
-    this.props.loginPostFetch(this.state)
+    this.props.loginUser(this.state)
   }
 
   render(){
