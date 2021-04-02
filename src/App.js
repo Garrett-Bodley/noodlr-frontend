@@ -25,8 +25,11 @@ class App extends Component{
     return (
       <Router >
         <Navbar />
+        <br/>
         <Route exact path={['/login', '/signup']} render={() => <UsersContainer getUser={this.props.getUser} /> } />
         <Route exact path={['/noodlr', '/']} render={() => <NoisemakerContainer getUser={this.props.getUser} /> }/>
+        <br/>
+        <br/>
       </Router>
     );
   }
