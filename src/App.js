@@ -11,6 +11,7 @@ import {
 import { connect } from 'react-redux';
 import { getUser } from './actions/authActions'
 import UserContainer from './containers/UserContainer';
+import { Noise } from 'tone';
 
 class App extends Component{
 
@@ -28,8 +29,9 @@ class App extends Component{
         <Navbar />
         <br/>
         <Route exact path={['/login', '/signup']} render={() => <AuthContainer/> } />
-        <Route exact path={['/noodlr', '/']} render={() => <NoisemakerContainer/> }/>
-        <Route path='/users' render={() => <UserContainer/> } />
+        <Route exact path={['/noodlr', '/']} render={() => <NoisemakerContainer /> }/>
+        <Route path='/vamps/:id' render={(routeProps) => <NoisemakerContainer {...routeProps} />} />
+        <Route path='/users' render={(routeProps) => <UserContainer {...routeProps} /> } />
         <br/>
         <br/>
       </Router>
