@@ -28,13 +28,13 @@ class Login extends Component {
           <div className="field">
             <label>Username:</label>
             <div className="control">
-              <input name="username" type="text"></input>
+              <input className="input" name="username" type="text"></input>
             </div>
           </div>
           <div className="field">
             <label>Password:</label>
             <div className="control">
-              <input name="password" type="password"></input>
+              <input className="input" name="password" type="password"></input>
             </div>
           </div>
           <div className="field">
