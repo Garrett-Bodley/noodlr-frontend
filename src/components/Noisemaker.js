@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
-import { saveVamp } from '../actions/vampActions'
+import { saveVamp, getVamp } from '../actions/vampActions'
 import * as Tone from 'tone'
 import './Noisemaker.css'
 
@@ -18,7 +18,8 @@ class NoiseMaker extends Component {
     grid: NoiseMaker.makeGrid(),
     beat: 0,
     tempo: 120,
-    volume: 0, 
+    editMode: false,
+    volume: parseFloat(-20), 
     blob: null,
     modalDisplayed: false,
     name: ''
@@ -76,6 +77,32 @@ class NoiseMaker extends Component {
     }
 
     return rows
+  }
+
+  componentDidMount(){
+    if(!!this.props.vampId){
+      if(this.props.vamps.length > 0){
+        const vampId = parseInt(this.props.vampId)
+        let vamp = this.props.vamps.find(vamp => vamp.id === vampId)
+        this.setState({grid: vamp.notation, editMode: true})
+      }else{
+        this.props.getVamp(this.props.vampId)
+      }
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.editMode === false && !!prevProps.vampId && this.props.vamps.length > 0){
+      const vampId = parseInt(this.props.vampId)
+      let vamp = this.props.vamps.find(vamp => vamp.id === vampId)
+      this.setState({grid: vamp.notation, editMode: true})
+    }
+  }
+
+  componentWillUnmount(){
+    Tone.Transport.stop()
+    Tone.Transport.clear()
+    this.state.synths.forEach(synth => synth.dispose())
   }
 
   playMusic = () => {
@@ -175,25 +202,30 @@ class NoiseMaker extends Component {
   }
 
   handleVolumeChange = (e) => {
-    this.setState({volume: e.target.value})
-    Tone.getDestination().volume.rampTo(e.target.value, .1)
+    this.setState({volume: parseFloat(e.target.value)})
+    Tone.getDestination().volume.rampTo(parseFloat(e.target.value), .1)
   }
 
-  constructAudioConfigObj = (blob) => {
-    console.log('constructing configObj!')
-    const formData = new FormData()
-    formData.append('recording', blob)
-
-    const configObj = {
-      method: "POST",
-      headers: {
-        "Accept": "application/json"
-      },
-      body: formData
-    }
-
-    return configObj
+  displayVolume = () => {
+    const volumeDisplay = Math.round((this.state.volume + 20) * 10)/10
+    return volumeDisplay
   }
+
+  // constructAudioConfigObj = (blob) => {
+  //   console.log('constructing configObj!')
+  //   const formData = new FormData()
+  //   formData.append('recording', blob)
+
+  //   const configObj = {
+  //     method: "POST",
+  //     headers: {
+  //       "Accept": "application/json"
+  //     },
+  //     body: formData
+  //   }
+
+  //   return configObj
+  // }
 
   // saveRecording = (blob) => {
   //   const configObj = this.constructAudioConfigObj(blob)
@@ -231,6 +263,7 @@ class NoiseMaker extends Component {
 
   handleOnSubmit = (e) => {
     e.preventDefault()
+    this.props.clearErrors()
     this.props.saveVamp({name: this.state.name, notation: this.state.grid})
   }
 
@@ -240,12 +273,22 @@ class NoiseMaker extends Component {
 
   renderModal = () => {
     if(!!this.state.modalDisplayed){
-      return <SaveVampModal 
-      error={this.props.error}
-      pending={this.props.pending} 
-      handleOnSubmit={this.handleOnSubmit} 
-      handleOnChange={this.handleOnChange} 
-      hideModal={this.hideModal} /> 
+      if(this.state.editMode){
+        return <SaveVampModal 
+        editMode={this.state.editMode}
+        error={this.props.error}
+        pending={this.props.pending} 
+        handleOnSubmit={this.handleOnSubmit} 
+        handleOnChange={this.handleOnChange} 
+        hideModal={this.hideModal} /> 
+      }else{
+        return <SaveVampModal 
+        error={this.props.error}
+        pending={this.props.pending} 
+        handleOnSubmit={this.handleOnSubmit} 
+        handleOnChange={this.handleOnChange} 
+        hideModal={this.hideModal} /> 
+      }
     }
   }
 
@@ -291,14 +334,14 @@ class NoiseMaker extends Component {
         <input
         className="volume-slider"
         type="range"
-        min={-20}
-        max={20}
+        min={-40}
+        max={0}
         step={0.1}
         value={this.state.volume}
         onChange={this.handleVolumeChange}
         />
         <p className="volume-display content">
-          {this.state.volume}
+          {this.displayVolume()}
         </p>
 
         <button className="button is-rounded" onClick={this.displayModal}>Save Vamp</button>
@@ -310,13 +353,16 @@ class NoiseMaker extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+  getVamp: (vampId) => dispatch(getVamp(vampId)),
   clearErrors: () => dispatch({type:'CLEAR_ERRORS'}),
   saveVamp: (vamp) => dispatch(saveVamp(vamp))
 })
 
 const mapStateToProps = state => ({
+  currentUser: state.auth.currentUser,
   pending: state.vamp.pending,
-  error: state.vamp.error
+  error: state.vamp.error,
+  vamps: state.vamp.vamps
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoiseMaker)
