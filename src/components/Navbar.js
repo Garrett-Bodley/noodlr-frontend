@@ -36,7 +36,7 @@ class Navbar extends Component{
     return(
       <nav className="navbar is-spaced" id="navbar">
         <div className="navbar-brand" >
-          <p className="title is-1">  Noodlr</p>
+          <Link className="title is-1" to='/noodlr'>  Noodlr</Link>
         </div>
         {this.renderLinks()}
       </nav>
