@@ -1,24 +1,30 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import NoiseMaker from '../components/Noisemaker'
 
 
-const NoisemakerContainer = ({match}) => {
-  // console.log(match)
+class NoisemakerContainer extends Component{
 
-  if(!!match && match.path === '/vamps/:id'){
-    const vampId = match.params.id
+  renderNoiseMaker = () => {
+    if(!!this.props.match && this.props.match.path === '/vamps/:id'){
+      const vampId = parseInt(this.props.match.params.id)
+      return <NoiseMaker vampId={vampId} />
+    }else{
+      return <NoiseMaker />
+    }
+  }
+
+  render(){
     return(
       <div id="noisemakerContainer">
-        <NoiseMaker vampId={vampId} />
-      </div>
-    )
-  }else{
-    return(
-      <div id="noisemakerContainer">
-        <NoiseMaker />
+        {this.renderNoiseMaker()}
       </div>
     )
   }
 }
 
-export default NoisemakerContainer
+const mapStatetoProps = (state) => ({
+  loggedIn: state.loggedIn
+})
+
+export default connect(mapStatetoProps)(NoisemakerContainer)
