@@ -3,8 +3,16 @@ import React, { Component } from 'react'
 class Login extends Component {
   
   state = {
-    username: null,
-    password: null
+    username: '',
+    password: ''
+  }
+
+  componentDidMount(){
+    this.props.clearStatus()
+  }
+
+  componentWillUnmount(){
+    this.props.clearStatus()
   }
 
   handleOnChange = (e) => {
@@ -20,21 +28,24 @@ class Login extends Component {
   render(){
     return(
   
-      <div id="login" className="container card box">
+      <div id="login" className="container card box login">
         <form onSubmit={this.handleOnSubmit} onChange={this.handleOnChange} >
           <div className="field">
             <h2 className="is-size-2">Login</h2>
           </div>
           <div className="field">
+            <p className="has-text-danger has-background-danger-light">{!!this.props.status.failed ? `${this.props.status.messages}` : null}</p>
+          </div>
+          <div className="field">
             <label>Username:</label>
             <div className="control">
-              <input className="input" name="username" type="text"></input>
+              <input className="input" name="username" onChange={this.handleOnChange} value={this.state.username} type="text"></input>
             </div>
           </div>
           <div className="field">
             <label>Password:</label>
             <div className="control">
-              <input className="input" name="password" type="password"></input>
+              <input className="input" name="password" onChange={this.handleOnChange} value={this.state.password} type="password"></input>
             </div>
           </div>
           <div className="field">
