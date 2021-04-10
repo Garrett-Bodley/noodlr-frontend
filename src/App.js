@@ -5,13 +5,11 @@ import AuthContainer from './containers/AuthContainer'
 import Navbar from './components/Navbar'
 import {
   BrowserRouter as Router,
-  Switch,
   Route
 } from "react-router-dom";
 import { connect } from 'react-redux';
 import { getUser } from './actions/authActions'
 import UserContainer from './containers/UserContainer';
-import { Noise } from 'tone';
 
 class App extends Component{
 
