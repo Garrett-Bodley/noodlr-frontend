@@ -1,12 +1,12 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
-import { saveVamp, getVamp } from '../actions/vampActions'
+import { saveVamp, getVamp, editVamp } from '../actions/vampActions'
 import * as Tone from 'tone'
 import './Noisemaker.css'
 
 import classNames from 'classnames/bind'
 import SaveVampModal from './SaveVampModal'
-import Recorder from './Recorder'
+// import Recorder from './Recorder'
 import Note from './Note'
 
 class NoiseMaker extends Component {
@@ -18,7 +18,6 @@ class NoiseMaker extends Component {
     grid: NoiseMaker.makeGrid(),
     beat: 0,
     tempo: 120,
-    editMode: false,
     volume: parseFloat(-20), 
     blob: null,
     modalDisplayed: false,
@@ -82,27 +81,26 @@ class NoiseMaker extends Component {
   componentDidMount(){
     if(!!this.props.vampId){
       if(this.props.vamps.length > 0){
-        const vampId = parseInt(this.props.vampId)
-        let vamp = this.props.vamps.find(vamp => vamp.id === vampId)
-        this.setState({grid: vamp.notation, editMode: true})
+        let vamp = this.props.vamps.find(vamp => vamp.id === this.props.vampId)
+        this.setState({grid: vamp.notation, name: vamp.name, tempo: vamp.tempo, volume: vamp.volume})
       }else{
         this.props.getVamp(this.props.vampId)
       }
     }
   }
 
-  componentDidUpdate(prevProps, prevState){
-    if(prevState.editMode === false && !!prevProps.vampId && this.props.vamps.length > 0){
-      const vampId = parseInt(this.props.vampId)
-      let vamp = this.props.vamps.find(vamp => vamp.id === vampId)
-      this.setState({grid: vamp.notation, editMode: true})
+  componentDidUpdate(prevProps){
+    if(prevProps.vamps.length === 0 && !!prevProps.vampId && this.props.vamps.length > 0){
+      let vamp = this.props.vamps.find(vamp => vamp.id === this.props.vampId)
+      this.setState({grid: vamp.notation, tempo: vamp.tempo, volume: vamp.volume})
     }
   }
 
   componentWillUnmount(){
     Tone.Transport.stop()
-    Tone.Transport.clear()
+    Tone.Transport.cancel()
     this.state.synths.forEach(synth => synth.dispose())
+    this.props.clearErrors()
   }
 
   playMusic = () => {
@@ -264,7 +262,22 @@ class NoiseMaker extends Component {
   handleOnSubmit = (e) => {
     e.preventDefault()
     this.props.clearErrors()
-    this.props.saveVamp({name: this.state.name, notation: this.state.grid})
+    if(this.props.vampId){
+      this.props.editVamp({
+        id: this.props.vampId, 
+        name: this.state.name, 
+        notation: this.state.grid,
+        volume: this.state.volume,
+        tempo: this.state.tempo
+      })
+    }else{
+      this.props.saveVamp({
+        name: this.state.name, 
+        notation: this.state.grid,
+        volume: this.state.volume,
+        tempo: this.state.tempo
+      })
+    }
   }
 
   handleOnChange = (e) => {
@@ -273,9 +286,11 @@ class NoiseMaker extends Component {
 
   renderModal = () => {
     if(!!this.state.modalDisplayed){
-      if(this.state.editMode){
+      if(!!this.props.vampId){
+        let vamp = this.props.vamps.find(vamp => vamp.id === this.props.vampId)
         return <SaveVampModal 
-        editMode={this.state.editMode}
+        status={this.props.status}
+        vamp={vamp}
         error={this.props.error}
         pending={this.props.pending} 
         handleOnSubmit={this.handleOnSubmit} 
@@ -283,6 +298,7 @@ class NoiseMaker extends Component {
         hideModal={this.hideModal} /> 
       }else{
         return <SaveVampModal 
+        status={this.props.status}
         error={this.props.error}
         pending={this.props.pending} 
         handleOnSubmit={this.handleOnSubmit} 
@@ -344,7 +360,7 @@ class NoiseMaker extends Component {
           {this.displayVolume()}
         </p>
 
-        <button className="button is-rounded" onClick={this.displayModal}>Save Vamp</button>
+        <button className="button is-rounded" onClick={this.displayModal}>{!!this.props.vampId ? 'Save Changes' : 'Save Vamp'}</button>
         {/* <Recorder saveRecording={this.saveRecording} recorder={this.makeRecorder()} /> */}
         
       </div>
@@ -355,14 +371,16 @@ class NoiseMaker extends Component {
 const mapDispatchToProps = (dispatch) => ({
   getVamp: (vampId) => dispatch(getVamp(vampId)),
   clearErrors: () => dispatch({type:'CLEAR_ERRORS'}),
-  saveVamp: (vamp) => dispatch(saveVamp(vamp))
+  saveVamp: (vamp) => dispatch(saveVamp(vamp)),
+  editVamp: (vamp) => dispatch(editVamp(vamp))
 })
 
 const mapStateToProps = state => ({
   currentUser: state.auth.currentUser,
   pending: state.vamp.pending,
   error: state.vamp.error,
-  vamps: state.vamp.vamps
+  vamps: state.vamp.vamps,
+  status: state.vamp.status
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoiseMaker)
