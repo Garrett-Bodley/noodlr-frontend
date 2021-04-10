@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import * as Tone from 'tone'
 
 class Recorder extends Component {
 
@@ -9,7 +8,7 @@ class Recorder extends Component {
     chunks: []
   }
 
-  configRecorder = (recorder) => {
+  configRecorder = () => {
 
     const updatedRecorder = this.state.recorder
 
