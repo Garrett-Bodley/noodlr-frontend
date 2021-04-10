@@ -1,7 +1,6 @@
 const SUBMIT_URL = 'http://localhost:3001'
 
 export const createNewUser = (user) => {
-
   const configObj = {
     method: "POST",
     headers: {
@@ -19,13 +18,63 @@ export const createNewUser = (user) => {
           return dispatch({type: 'AUTHENTICATED', payload: json.user})
         })
       }else{
-        return resp.json().then(errors => {
-          dispatch({type: 'NOT_AUTHENTICATED'})
-          return Promise.reject(errors)
+        return resp.json().then(json => {
+          dispatch({type: 'NOT_AUTHENTICATED', payload: json.messages})
+          return Promise.reject(json)
         })
       }
     })
   }
+}
+
+export const patchUser = (user) => {
+  const token = getToken()
+  const configObj = {
+    method: "PATCH",
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify({ user })
+  }
+
+  return (dispatch) => fetch(SUBMIT_URL + `/users/${user.id}`, configObj).then(resp => {
+    if(resp.ok){
+      return resp.json().then(json => dispatch({type: 'EDIT_USER', payload: json}))
+    }else{
+      return resp.json().then(errors => {
+        dispatch({type: 'UPDATE_FAILED', payload: errors.messages})
+        return Promise.reject(errors)
+      })
+    }
+  })
+}
+
+export const deleteUser = (userId) => {
+  const token = getToken()
+  const configObj = {
+    method: "DELETE",
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    }
+  }
+
+  return (dispatch) => fetch(SUBMIT_URL + `/users/${userId}`, configObj).then(resp => {
+    if(resp.ok){
+      return resp.json().then(json => {
+        dispatch({type: 'USER_DELETED', payload: json.messages})
+        dispatch(logoutUser())
+      })
+    }else{
+      return resp.json().then(errors => {
+        dispatch({type: 'UPDATE_FAILED', payload: errors.messages})
+        return Promise.reject(errors)
+      })
+    }
+  })
 }
 
 export const loginUser = (user) => {
@@ -46,7 +95,7 @@ export const loginUser = (user) => {
         })
       }else{
         return resp.json().then(errors => {
-          dispatch({type: 'NOT_AUTHENTICATED'})
+          dispatch(notAuthenticated(errors))
           return Promise.reject(errors)
         })
       }
@@ -58,6 +107,10 @@ export const logoutUser = () => {
   localStorage.removeItem('user')
   localStorage.removeItem('token')
   return dispatch => dispatch({type: "CLIENT_LOGOUT"})
+}
+
+export const notAuthenticated = (errors) => {
+  return {type: 'NOT_AUTHENTICATED', payload: errors.messages}
 }
 
 const setUserToken = ({user, token}) => {
@@ -85,4 +138,8 @@ export const getUser = () => {
     localStorage.removeItem("user")
     return (dispatch) => dispatch({type: "AUTHENTICATION_NOT_PERSISTED"})
   }
+}
+
+export const clearStatus = () => {
+  return dispatch => dispatch({type: 'CLEAR_STATUS'})
 }
