@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { DisplayVamps } from './DisplayVamps'
-import { ProfileErrors } from './ProfileErrors'
+import DisplayVamps from './DisplayVamps'
+import ProfileErrors from './ProfileErrors'
 
 class Profile extends Component{
 
