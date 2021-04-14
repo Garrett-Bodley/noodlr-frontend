@@ -1,6 +1,4 @@
-import React from 'react'
-
-export const DisplayVamps = ({vamps, selectedVamp, handleOnChange, handleVampLoad, handleDelete}) => {
+const DisplayVamps = ({vamps, selectedVamp, handleOnChange, handleVampLoad, handleDelete}) => {
   
   const displayVamps = () => {
     return vamps.map(vamp => <option key={vamp.id} value={vamp.id} >{vamp.name}</option>)
@@ -25,3 +23,5 @@ export const DisplayVamps = ({vamps, selectedVamp, handleOnChange, handleVampLoa
 
   )
 }
+
+export default DisplayVamps
