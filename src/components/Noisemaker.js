@@ -7,6 +7,7 @@ import './Noisemaker.css'
 import { saveVamp, getVamp, editVamp } from '../actions/vampActions'
 import SaveVampModal from './SaveVampModal'
 import Note from './Note'
+import PlayButton from './PlayButton'
 import TempoDisplay from './TempoDisplay'
 import VolumeDisplay from './VolumeDisplay'
 // import Recorder from './Recorder'
@@ -313,20 +314,7 @@ class NoiseMaker extends Component {
         {/* Sequencer Buttons */}
         {this.renderGrid()}
 
-        {/* Stop/Start button */}
-        <button 
-        className={
-          classNames(
-            'button',
-            'is-rounded',
-            'play-button', 
-            {'play-button-playing': this.state.playing},
-            {'play-button-stopped': !this.state.playing}
-          )
-        } 
-        onClick={this.togglePlay}>
-          {this.state.playing ? 'Stop' : 'Start'}
-        </button>
+        <PlayButton playing={this.state.playing} togglePlay={this.togglePlay} />
 
         <TempoDisplay tempo={this.state.tempo} handleTempoChange={this.handleTempoChange} />
 
