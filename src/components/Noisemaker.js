@@ -1,13 +1,15 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
-import { saveVamp, getVamp, editVamp } from '../actions/vampActions'
 import * as Tone from 'tone'
+import classNames from 'classnames/bind'
 import './Noisemaker.css'
 
-import classNames from 'classnames/bind'
+import { saveVamp, getVamp, editVamp } from '../actions/vampActions'
 import SaveVampModal from './SaveVampModal'
-// import Recorder from './Recorder'
 import Note from './Note'
+import TempoDisplay from './TempoDisplay'
+import VolumeDisplay from './VolumeDisplay'
+// import Recorder from './Recorder'
 
 class NoiseMaker extends Component {
 
@@ -205,11 +207,6 @@ class NoiseMaker extends Component {
     Tone.getDestination().volume.rampTo(parseFloat(e.target.value), 0.001)
   }
 
-  displayVolume = () => {
-    const volumeDisplay = Math.round((this.state.volume + 20) * 10)/10
-    return volumeDisplay
-  }
-
   // constructAudioConfigObj = (blob) => {
   //   console.log('constructing configObj!')
   //   const formData = new FormData()
@@ -331,35 +328,9 @@ class NoiseMaker extends Component {
           {this.state.playing ? 'Stop' : 'Start'}
         </button>
 
-        {/* Adjust Tempo */}
-        <input 
-        className="tempo-slider" 
-        type="range" 
-        min={40} 
-        max={200} 
-        step={1} 
-        value={this.state.tempo || 120} 
-        onChange={this.handleTempoChange}/>
+        <TempoDisplay tempo={this.state.tempo} handleTempoChange={this.handleTempoChange} />
 
-        {/* Display Tempo */}
-        <p 
-        className="tempo-display content">
-          {this.state.tempo}
-        </p>
-
-        {/* Volume Slider */}
-        <input
-        className="volume-slider"
-        type="range"
-        min={-40}
-        max={0}
-        step={0.1}
-        value={this.state.volume || -20}
-        onChange={this.handleVolumeChange}
-        />
-        <p className="volume-display content">
-          {this.displayVolume()}
-        </p>
+        <VolumeDisplay volume={this.state.volume} handleVolumeChange={this.handleVolumeChange} />
 
         <button className="button is-rounded" onClick={this.displayModal}>{!!this.props.vampId ? 'Save Changes' : 'Save Vamp'}</button>
         {/* <Recorder saveRecording={this.saveRecording} recorder={this.makeRecorder()} /> */}
