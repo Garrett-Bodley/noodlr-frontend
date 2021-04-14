@@ -1,6 +1,4 @@
-import React from 'react'
-
-export const ProfileErrors = ({vampError, vampStatus}) => {
+const ProfileErrors = ({vampError, vampStatus}) => {
   return(
     <div className="field">
       <p className="has-text-danger has-background-danger-light">{vampError ? vampError : null}</p>
@@ -8,3 +6,5 @@ export const ProfileErrors = ({vampError, vampStatus}) => {
     </div>
   )
 }
+
+export default ProfileErrors
