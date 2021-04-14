@@ -1,5 +1,7 @@
 import { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { DisplayVamps } from './DisplayVamps'
+import { ProfileErrors } from './ProfileErrors'
 
 class Profile extends Component{
 
@@ -15,10 +17,6 @@ class Profile extends Component{
     if (this.props.vamps.length > 0 && this.state.selectedVamp === undefined) {
       this.setState({selectedVamp: this.props.vamps[0].id})
     }
-  }
-
-  displayVamps = () => {
-    return this.props.vamps.map(vamp => <option key={vamp.id} value={vamp.id} >{vamp.name}</option>)
   }
 
   handleVampLoad = () => {
@@ -58,25 +56,14 @@ class Profile extends Component{
           <div className="tile is-parent is-8">
             <div className="tile is-child box">
               <p className="title">Vamps:</p>
-              <div className="field">
-                <p className="has-text-danger has-background-danger-light">{this.props.vampError ? this.props.vampError : null}</p>
-                <p className="has-text-success has-background-success-light">{this.props.vampStatus ? this.props.vampStatus : null}</p>
-              </div>
-              <div className="field has-addons">
-                <div className="control is-expanded">
-                  <div className="select is-fullwidth">
-                    <select value={this.state.selectedVamp} onChange={this.handleOnChange}>
-                      {this.displayVamps()}
-                    </select>
-                  </div>
-                </div>
-                {(this.props.vamps.length > 0) ?
-                  <>
-                    <button onClick={this.handleVampLoad} className="button mx-1 is-grouped is-link">Load</button>
-                    <button onClick={this.handleDelete} className="button is-grouped is-danger">Delete</button>
-                  </>
-                : null}
-              </div>
+              <ProfileErrors vampError={this.props.vampError} vampStatus={this.props.vampStatus} />
+              <DisplayVamps 
+              vamps={this.props.vamps} 
+              selectedVamp={this.state.selectedVamp} 
+              handleOnChange={this.handleOnChange}
+              handleVampLoad={this.handleVampLoad} 
+              handleDelete={this.handleDelete}
+              />
             </div>
           </div>
         </div>
