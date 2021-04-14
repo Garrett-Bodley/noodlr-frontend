@@ -181,6 +181,7 @@ class NoiseMaker extends Component {
     if(!this.state.activated){
       Tone.start()
       this.setState({activated: true, playing: true})
+      Tone.getDestination().volume.rampTo(this.state.volume, 0.001)
       this.playMusic()
       return
     }
@@ -201,7 +202,7 @@ class NoiseMaker extends Component {
 
   handleVolumeChange = (e) => {
     this.setState({volume: parseFloat(e.target.value)})
-    Tone.getDestination().volume.rampTo(parseFloat(e.target.value), .1)
+    Tone.getDestination().volume.rampTo(parseFloat(e.target.value), 0.001)
   }
 
   displayVolume = () => {
@@ -337,7 +338,7 @@ class NoiseMaker extends Component {
         min={40} 
         max={200} 
         step={1} 
-        value={this.state.tempo} 
+        value={this.state.tempo || 120} 
         onChange={this.handleTempoChange}/>
 
         {/* Display Tempo */}
@@ -353,7 +354,7 @@ class NoiseMaker extends Component {
         min={-40}
         max={0}
         step={0.1}
-        value={this.state.volume}
+        value={this.state.volume || -20}
         onChange={this.handleVolumeChange}
         />
         <p className="volume-display content">
