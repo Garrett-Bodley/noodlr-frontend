@@ -1,7 +1,3 @@
-.App {
-  /* text-align: center; */
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -23,6 +19,30 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+html, body, #root{
+  height: 100%;
+  overflow: auto;
+}
+
+/* #toggle-theme{
+  margin: 0 auto;
+  display: block
+}
+
+.dark-mode{
+  overflow: auto;
+  height: 100vh;
+  background-color: #363537;
+  color: #FAFAFA;
+}
+
+.light-mode{
+  overflow: auto;
+  height: 100vh;
+  background-color: #FFFFFF;
+  color: #363537;
+} */
 
 .App-link {
   color: #61dafb;
