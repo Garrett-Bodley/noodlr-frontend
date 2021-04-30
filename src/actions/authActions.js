@@ -1,4 +1,4 @@
-const SUBMIT_URL = 'http://localhost:3001'
+const SUBMIT_URL = 'https://noodlr.herokuapp.com'
 
 export const createNewUser = (user) => {
   const configObj = {

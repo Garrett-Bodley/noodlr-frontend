@@ -1,6 +1,6 @@
 import { getToken, notAuthenticated } from './authActions'
 
-const SUBMIT_URL = 'http://localhost:3001/vamps'
+const SUBMIT_URL = 'https://noodlr.herokuapp.com/vamps'
 
 export const saveVamp = ({name, notation, volume, tempo}) => {
 
