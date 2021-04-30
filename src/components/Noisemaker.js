@@ -1,7 +1,6 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
 import * as Tone from 'tone'
-import classNames from 'classnames/bind'
 import './Noisemaker.css'
 
 import { saveVamp, getVamp, editVamp } from '../actions/vampActions'
