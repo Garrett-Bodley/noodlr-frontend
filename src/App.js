@@ -31,7 +31,7 @@ class App extends Component{
         <Switch>
           <Route exact path={['/login', '/signup']} render={() => <AuthContainer/> } />
           <Route exact path={['/noodlr', '/']} render={() => <NoisemakerContainer /> }/>
-          <Route exact path ="/jamr" render={() => <JamrContainer />} />
+          {/* <Route exact path ="/jamr" render={() => <JamrContainer />} /> */}
           <Route path='/vamps/:id' render={(routeProps) => <NoisemakerContainer {...routeProps} />} />
           <Route path='/users' render={(routeProps) => <UserContainer {...routeProps} /> } />
         </Switch>

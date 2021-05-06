@@ -9,7 +9,7 @@ import SaveVampModal from './SaveVampModal'
 import PlayButton from './PlayButton'
 import TempoDisplay from './TempoDisplay'
 import VolumeDisplay from './VolumeDisplay'
-// import Recorder from './Recorder'
+import Recorder from './Recorder'
 
 class NoiseMaker extends Component {
 
@@ -26,18 +26,18 @@ class NoiseMaker extends Component {
     name: ''
   }
 
-  // makeRecorder = () => {
-  //   const ctx = Tone.context;
-  //   const dest = ctx.createMediaStreamDestination();
+  makeRecorder = () => {
+    const ctx = Tone.context;
+    const dest = ctx.createMediaStreamDestination();
 
-  //   this.state.synths.forEach(synth => {
-  //     synth.connect(dest)
-  //   })
+    this.state.synths.forEach(synth => {
+      synth.connect(dest)
+    })
 
-  //   const recorder = new MediaRecorder(dest.stream);
+    const recorder = new MediaRecorder(dest.stream);
 
-  //   return recorder
-  // }
+    return recorder
+  }
 
   static makeSynths = () => {
 
@@ -170,46 +170,46 @@ class NoiseMaker extends Component {
     Tone.getDestination().volume.rampTo(parseFloat(e.target.value), 0.001)
   }
 
-  // constructAudioConfigObj = (blob) => {
-  //   console.log('constructing configObj!')
-  //   const formData = new FormData()
-  //   formData.append('recording', blob)
+  constructAudioConfigObj = (blob) => {
+    console.log('constructing configObj!')
+    const formData = new FormData()
+    formData.append('recording', blob)
 
-  //   const configObj = {
-  //     method: "POST",
-  //     headers: {
-  //       "Accept": "application/json"
-  //     },
-  //     body: formData
-  //   }
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Accept": "application/json"
+      },
+      body: formData
+    }
 
-  //   return configObj
-  // }
+    return configObj
+  }
 
-  // saveRecording = (blob) => {
-  //   const configObj = this.constructAudioConfigObj(blob)
+  saveRecording = (blob) => {
+    const configObj = this.constructAudioConfigObj(blob)
 
-  //   console.log('about to fetch')
-  //   fetch('http://localhost:3001/noodles', configObj).then(resp => resp.json()).then(json => console.log(json))
-  //   console.log('fetch completed')
+    console.log('about to fetch')
+    fetch('http://localhost:3001/noodles', configObj).then(resp => resp.json()).then(json => console.log(json))
+    console.log('fetch completed')
     
-  // }
+  }
 
-  // constructVampConfigObj = () => {
-  //   const formData = new FormData()
-  //   const grid = JSON.stringify(this.state.grid)
-  //   formData.append('notation', grid)
-  //   debugger
-  //   const configObj = {
-  //     method: "POST",
-  //     headers: {
-  //       "Accept": "application/json"
-  //     },
-  //     body: formData
-  //   }
+  constructVampConfigObj = () => {
+    const formData = new FormData()
+    const grid = JSON.stringify(this.state.grid)
+    formData.append('notation', grid)
+    debugger
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Accept": "application/json"
+      },
+      body: formData
+    }
 
-  //   return configObj
-  // }
+    return configObj
+  }
 
   displayModal = () => {
     this.setState({modalDisplayed: true})
