@@ -11,7 +11,7 @@ import {
 import { connect } from 'react-redux';
 import { getUser } from './actions/authActions'
 import UserContainer from './containers/UserContainer';
-import JamrContainer from './containers/JamrContainer';
+// import JamrContainer from './containers/JamrContainer';
 
 class App extends Component{
 

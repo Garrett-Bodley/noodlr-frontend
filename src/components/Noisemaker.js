@@ -9,7 +9,7 @@ import SaveVampModal from './SaveVampModal'
 import PlayButton from './PlayButton'
 import TempoDisplay from './TempoDisplay'
 import VolumeDisplay from './VolumeDisplay'
-import Recorder from './Recorder'
+// import Recorder from './Recorder'
 
 class NoiseMaker extends Component {
 
