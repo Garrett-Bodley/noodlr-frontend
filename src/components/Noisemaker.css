@@ -67,7 +67,7 @@
 }
 
 .on-beat {
-  border: 2px solid green
+  filter: brightness(110%)
 }
 
 .tempo-slider{

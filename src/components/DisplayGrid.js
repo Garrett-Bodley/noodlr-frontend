@@ -3,6 +3,22 @@ import Note from './Note'
 
 const DisplayGrid = ({grid, beat, handleOnClick}) => {
   
+  const newColors = [
+    ['hsl(42deg, 100%, 75%)', 'hsl(42deg, 100%, 64%)', 'hsl(42deg, 100%, 49%)'],
+    ['hsl(42deg, 100%, 75%)', 'hsl(42deg, 100%, 64%)', 'hsl(42deg, 100%, 49%)'],
+    
+    ['hsl(100deg, 86%, 74%)', 'hsl(100deg, 86%, 63%)', 'hsl(100deg, 86%, 47%)'],
+    ['hsl(100deg, 86%, 74%)', 'hsl(100deg, 86%, 63%)', 'hsl(100deg, 86%, 47%)'],
+    
+    ['hsl(147deg, 57%, 60%)', 'hsl(147deg, 57%, 51%)', 'hsl(147deg, 57%, 35%)'],
+    ['hsl(147deg, 57%, 60%)', 'hsl(147deg, 57%, 51%)', 'hsl(147deg, 57%, 35%)'],
+    
+    ['hsl(4deg, 82%, 63%)', 'hsl(4deg, 82%, 54%)', 'hsl(4deg, 82%, 38%)'],
+    ['hsl(4deg, 82%, 63%)', 'hsl(4deg, 82%, 54%)', 'hsl(4deg, 82%, 38%)'],
+    ['hsl(4deg, 82%, 63%)', 'hsl(4deg, 82%, 54%)', 'hsl(4deg, 82%, 38%)']
+
+  ]
+
   const colors = [
     ['239, 50, 217', '137, 255, 253'],
     ['239, 50, 217', '137, 255, 253'],
@@ -24,10 +40,9 @@ const DisplayGrid = ({grid, beat, handleOnClick}) => {
       {row.map(({note, isActive}, noteIndex) => {
         return(
           <Note 
-          color={colors[rowIndex]} 
-          className={classNames("note", {"on-beat": beat === (noteIndex + 1) % 16}, {'note-is-active': isActive})} 
+          color={newColors[rowIndex]} 
+          className={classNames({"on-beat": beat === (noteIndex + 1) % 16, "active": isActive, "pushable": true})} 
           key={noteIndex + note} 
-          isActive={isActive} 
           note={note} 
           onClick={() => handleOnClick(rowIndex, noteIndex)} 
           />
