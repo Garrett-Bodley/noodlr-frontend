@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as Tone from 'tone'
 import './Noisemaker.css'
 
-import { saveVamp, getVamp, editVamp } from '../actions/vampActions'
+import { saveVamp, getVamp, editVamp } from '../../actions/vampActions'
 import DisplayGrid from './DisplayGrid'
 import SaveVampModal from './SaveVampModal'
 import PlayButton from './PlayButton'
