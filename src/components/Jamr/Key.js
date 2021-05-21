@@ -9,7 +9,7 @@ const Key = ({note, handleMouseDown, handleMouseUp, handleMoustOut}) => {
         onMouseUp={handleMouseUp}
         onMouseOut={handleMoustOut}
       >
-        <input type="checkbox" className="checkbox" hidden={true}></input>
+        <input hidden={true} type="checkbox" className="checkbox"></input>
         <span className="shadow"></span>
         <span className="edge"></span>
         <span className="front">{note}</span>

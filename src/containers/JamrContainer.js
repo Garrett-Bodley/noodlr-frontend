@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as Tone from 'tone'
 import Key from '../components/Jamr/Key'
+import './JamrContainer.css'
 
 class JamrContainer extends Component{
 
@@ -70,7 +71,7 @@ class JamrContainer extends Component{
 
   render(){
     return(
-      <div id="jammr-container">
+      <div id="jamr-container">
 
         <div className="white-keys">
           {this.makeWhiteKeys()}
