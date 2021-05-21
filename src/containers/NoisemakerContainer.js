@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import NoiseMaker from '../components/Noisemaker'
+import NoiseMaker from '../components/Noisemaker/Noisemaker'
 
 
 class NoisemakerContainer extends Component{
