@@ -80,19 +80,26 @@ class JamrContainer extends Component{
   }
 
   makeBlackKeys = () => {
-    let notes = ['Gb3', 'Ab3', 'B3', 'Db4', 'Eb4']
+    let notes = ['Gb3', 'Ab3', '', 'B3', 'Db4', 'Eb4', '']
     let color = '0a0502'
-    return notes.map((note, index) => 
-      <Key 
-      key={index}
-      note={note}
-      color={color}
-      handleMouseDown={(e) => this.handleMouseDown(e, note)} 
-      handleMouseUp={(e) => this.handleMouseUp(e, note)}
-      handleMouseEnter={(e) => this.handleMouseEnter(e, note)}
-      handleMouseLeave={() => this.handleMouseLeave(note)} 
-      />
-    )
+    return notes.map((note, index) => {
+
+      if(index === 2 || index === 6){
+        return <Key key={index} hidden={true} />
+      }else{
+        return (
+          <Key 
+          key={index}
+          note={note}
+          color={color}
+          handleMouseDown={(e) => this.handleMouseDown(e, note)} 
+          handleMouseUp={(e) => this.handleMouseUp(e, note)}
+          handleMouseEnter={(e) => this.handleMouseEnter(e, note)}
+          handleMouseLeave={() => this.handleMouseLeave(note)} 
+          />
+        )
+      }
+    })
   }
 
 
