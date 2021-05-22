@@ -1,7 +1,7 @@
 import './Key.css'
 import * as TinyColor from 'tinycolor2'
 
-const Key = ({ note, color, handleMouseDown, handleMouseUp, handleMouseEnter, handleMouseLeave }) => {
+const Key = ({ note, hidden, color, handleMouseDown, handleMouseUp, handleMouseEnter, handleMouseLeave }) => {
 
   const edgeGradient = (hex) => {
     let gradient = `linear-gradient(
@@ -14,19 +14,29 @@ const Key = ({ note, color, handleMouseDown, handleMouseUp, handleMouseEnter, ha
     return gradient
   }
 
-  return(
-    <label 
-      className = "pushable"
-      onMouseDown = { handleMouseDown }
-      onMouseUp = { handleMouseUp }
-      onMouseEnter = { handleMouseEnter }
-      onMouseLeave = { handleMouseLeave }
-    >
-      <span className="shadow"></span>
-      <span className="edge" style={ { backgroundImage: edgeGradient(color) } }></span>
-      <span className="front" style={ { backgroundColor: TinyColor(color).toHslString() } }></span>
-    </label>
-  )
+  if(hidden === true){
+    return(
+      <label className = "pushable" style={ { visibility: 'hidden' } }>
+        <span className="shadow" style={ { visibility: 'hidden' } }></span>
+        <span className="edge" style={ { visibility: 'hidden' } }></span>
+        <span className="front" style={ { visibility: 'hidden' } }></span>
+      </label>
+    )
+  }else{
+    return(
+      <label 
+        className = "pushable"
+        onMouseDown = { handleMouseDown }
+        onMouseUp = { handleMouseUp }
+        onMouseEnter = { handleMouseEnter }
+        onMouseLeave = { handleMouseLeave }
+      >
+        <span className="shadow"></span>
+        <span className="edge" style={ { backgroundImage: edgeGradient(color) } }></span>
+        <span className="front" style={ { backgroundColor: TinyColor(color).toHslString() } }></span>
+      </label>
+    )
+  }
 }
 
 export default Key
