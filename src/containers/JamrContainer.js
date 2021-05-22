@@ -44,35 +44,62 @@ class JamrContainer extends Component{
   //   }
   // }
   
-  handleMouseDown = (note) => {
+  handleMouseDown = (e, note) => {
     this.state.synth.triggerAttack(note)
   }
 
-  handleMouseUp = (note) => {
+  handleMouseUp = (e, note) => {
     this.state.synth.triggerRelease(note)
   }
 
-  handleMouseOut = (note) => {
-    this.state.synths.triggerRelease(note)
+  handleMouseEnter = (e, note) => {
+    // Mouseover triggers a new note if primary mouse button is clicked
+    if(e.buttons === 1){
+      this.state.synth.triggerAttack(note)
+    }
+  }
+
+  handleMouseLeave = (note) => {
+    console.log('mouseleave event!')
+    this.state.synth.triggerRelease(note)
   }
 
   makeWhiteKeys = () => {
-    let notes = ['F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4']
-    return notes.map(note => 
+    let notes = ['F3', 'G3', 'A3', 'Bb3', 'C4', 'D4', 'E4', 'F4']
+    return notes.map((note, index) => 
       <Key 
+        key={index}
         note={note} 
-        handleMouseDown={() => this.handleMouseDown(note)} 
-        handleMouseUp={() => this.handleMouseUp(note)}
-        handleMouseOut={() => this.handleMouseOut(note)} 
+        handleMouseDown={(e) => this.handleMouseDown(e, note)} 
+        handleMouseUp={(e) => this.handleMouseUp(e, note)}
+        handleMouseEnter={(e) => this.handleMouseEnter(e, note)}
+        handleMouseLeave={() => this.handleMouseLeave(note)} 
       />
     )
+  }
+
+  makeBlackKeys = () => {
+    let notes = ['Gb3', 'Ab3', 'B3', 'Db4', 'Eb4']
+    return notes.map((note, index) => {
+      <Key 
+      key={index}
+      note={note}
+      handleMouseDown={(e) => this.handleMouseDown(e, note)} 
+      handleMouseUp={(e) => this.handleMouseUp(e, note)}
+      handleMouseEnter={(e) => this.handleMouseEnter(e, note)}
+      handleMouseLeave={() => this.handleMouseLeave(note)} 
+      />
+    })
+
   }
 
 
   render(){
     return(
       <div id="jamr-container">
+        <div className="black-keys">
 
+        </div>
         <div className="white-keys">
           {this.makeWhiteKeys()}
         </div>

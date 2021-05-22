@@ -1,4 +1,8 @@
-.jamr-container{
+#jamr-container{
+  height: 100%;
+}
+
+.white-keys{
   display: flex;
   justify-content: center;
   align-content: center;
