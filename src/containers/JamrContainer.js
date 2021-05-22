@@ -60,16 +60,17 @@ class JamrContainer extends Component{
   }
 
   handleMouseLeave = (note) => {
-    console.log('mouseleave event!')
     this.state.synth.triggerRelease(note)
   }
 
   makeWhiteKeys = () => {
     let notes = ['F3', 'G3', 'A3', 'Bb3', 'C4', 'D4', 'E4', 'F4']
+    let color = 'EEEAD8'
     return notes.map((note, index) => 
       <Key 
         key={index}
-        note={note} 
+        note={note}
+        color={color} 
         handleMouseDown={(e) => this.handleMouseDown(e, note)} 
         handleMouseUp={(e) => this.handleMouseUp(e, note)}
         handleMouseEnter={(e) => this.handleMouseEnter(e, note)}
@@ -80,17 +81,18 @@ class JamrContainer extends Component{
 
   makeBlackKeys = () => {
     let notes = ['Gb3', 'Ab3', 'B3', 'Db4', 'Eb4']
-    return notes.map((note, index) => {
+    let color = '0a0502'
+    return notes.map((note, index) => 
       <Key 
       key={index}
       note={note}
+      color={color}
       handleMouseDown={(e) => this.handleMouseDown(e, note)} 
       handleMouseUp={(e) => this.handleMouseUp(e, note)}
       handleMouseEnter={(e) => this.handleMouseEnter(e, note)}
       handleMouseLeave={() => this.handleMouseLeave(note)} 
       />
-    })
-
+    )
   }
 
 
@@ -98,7 +100,7 @@ class JamrContainer extends Component{
     return(
       <div id="jamr-container">
         <div className="black-keys">
-
+          {this.makeBlackKeys()}
         </div>
         <div className="white-keys">
           {this.makeWhiteKeys()}
