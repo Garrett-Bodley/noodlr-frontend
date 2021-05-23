@@ -16,24 +16,25 @@ const Key = ({ note, hidden, color, handleMouseDown, handleMouseUp, handleMouseE
 
   if(hidden === true){
     return(
-      <label className = "pushable" style={ { visibility: 'hidden' } }>
-        <span className="shadow" style={ { visibility: 'hidden' } }></span>
-        <span className="edge" style={ { visibility: 'hidden' } }></span>
-        <span className="front" style={ { visibility: 'hidden' } }></span>
+      <label className="pushable" style={ { visibility: 'hidden' } } draggable={ false }>
+        <span className="shadow" style={ { visibility: 'hidden' } } draggable={ false }></span>
+        <span className="edge" style={ { visibility: 'hidden' } } draggable={ false }></span>
+        <span className="front" style={ { visibility: 'hidden' } } draggable={ false }></span>
       </label>
     )
   }else{
     return(
       <label 
-        className = "pushable"
-        onMouseDown = { handleMouseDown }
-        onMouseUp = { handleMouseUp }
-        onMouseEnter = { handleMouseEnter }
-        onMouseLeave = { handleMouseLeave }
+        className="pushable"
+        onMouseDown={ handleMouseDown }
+        onMouseUp={ handleMouseUp }
+        onMouseEnter={ handleMouseEnter }
+        onMouseLeave={ handleMouseLeave }
+        draggable={ false }
       >
-        <span className="shadow"></span>
-        <span className="edge" style={ { backgroundImage: edgeGradient(color) } }></span>
-        <span className="front" style={ { backgroundColor: TinyColor(color).toHslString() } }></span>
+        <span className="shadow" draggable={ false }></span>
+        <span className="edge" style={ { backgroundImage: edgeGradient(color) } } draggable={ false }></span>
+        <span className="front" style={ { backgroundColor: TinyColor(color).toHslString() } } draggable={ false }></span>
       </label>
     )
   }
