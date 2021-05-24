@@ -1,7 +1,7 @@
 import './Key.css'
 import * as TinyColor from 'tinycolor2'
 
-const Key = ({ note, hidden, color, handleMouseDown, handleMouseUp, handleMouseEnter, handleMouseLeave }) => {
+const Key = ({ note, handleOnClick, hidden, color, handleMouseDown, handleMouseUp, handleMouseEnter, handleMouseLeave }) => {
 
   const edgeGradient = (hex) => {
     let gradient = `linear-gradient(
@@ -25,13 +25,16 @@ const Key = ({ note, hidden, color, handleMouseDown, handleMouseUp, handleMouseE
   }else{
     return(
       <label 
+        id={ note }
         className="pushable"
         onMouseDown={ handleMouseDown }
         onMouseUp={ handleMouseUp }
         onMouseEnter={ handleMouseEnter }
         onMouseLeave={ handleMouseLeave }
         draggable={ false }
+        onClick={ handleOnClick }
       >
+        <input hidden={true} type="checkbox" className="toggle" draggable={ false }></input>
         <span className="shadow" draggable={ false }></span>
         <span className="edge" style={ { backgroundImage: edgeGradient(color) } } draggable={ false }></span>
         <span className="front" style={ { backgroundColor: TinyColor(color).toHslString() } } draggable={ false }></span>
