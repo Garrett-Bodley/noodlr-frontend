@@ -8,58 +8,93 @@ class JamrContainer extends Component{
 
   state = {
     synth: JamrContainer.makeSynth(),
-    // keyboardControls: JamrContainer.makeKeyboardControls()
+    keyboardControls: JamrContainer.makeKeyboardControls()
   }
 
   static makeSynth = () => {
     return new Tone.PolySynth(Tone.Synth).set({ oscillator: { type: 'triangle8' } }).toDestination()
   }
 
-  // static makeKeyboardControls = () => {
-  //   let notes = ['F3', 'Gb3', 'G3', 'Ab3', 'A3', 'Bb3', 'B3', 'C4', 'Db4', 'D4', 'Eb4', 'E4', 'F4']
-  //   let keys = ['a', 'w', 's', 'e', 'd', 'f', 'g', 'y', 'h', 'u', 'j', 'i', 'k']
-  //   const keyboardControls = {}
-  //   for(let i = 0; i < notes.length; i++){
-  //     keyboardControls[keys[i]] = {pressed: false, note: notes[i]}
-  //   }
-  //   return keyboardControls
-  // }
+  static makeKeyboardControls = () => {
+    let whiteNotes = ['F3', 'G3', 'A3', 'Bb3', 'C4', 'D4', 'E4', 'F4']
+    let whiteKeys = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k']
 
-  // handleKeyDown = (e) => {
-  //   const key = e.key.toLowerCase();
-  //   if(this.state.keyboardControls[key] && !this.state.keyboardControls[key].pressed){
-  //     this.state.synth.triggerAttack(this.state.keyboardControls[key].note)
-  //     const newControls = Object.assign({}, this.state.keyboardControls)
-  //     newControls[key].pressed = true
-  //     this.setState( { keyboardControls: newControls } )
-  //   }
-  // }
+    let blackNotes = ['Gb3', 'Ab3', 'B3', 'Db4', 'Eb4']
+    let blackKeys =  ['w', 'e', 't', 'y', 'u']
 
-  // handleKeyUp = (e) => {
-  //   const key = e.key.toLowerCase();
-  //   if(this.state.keyboardControls[key] && this.state.keyboardControls[key].pressed){
-  //     this.state.synth.triggerRelease(this.state.keyboardControls[key].note)
-  //     const newControls = Object.assign({}, this.state.keyboardControls)
-  //     this.setState( { keyboardControls: newControls } )
-  //   }
-  // }
+    const keyboardControls = {}
+
+    whiteNotes.forEach((note, index) => {
+      keyboardControls[whiteKeys[index]] = {pressed: false, note: note}
+    })
+
+    blackNotes.forEach((note, index) => {
+      keyboardControls[blackKeys[index]] = {pressed: false, note: note}
+    })
+
+    return keyboardControls
+
+  }
+
+  handleKeyDown = (e) => {
+    // debugger
+    const key = e.key.toLowerCase();
+    if(this.state.keyboardControls[key] && !this.state.keyboardControls[key].pressed){
+      let note = this.state.keyboardControls[key].note
+      document.getElementById(note).firstElementChild.checked = true
+
+      this.state.synth.triggerAttack(this.state.keyboardControls[key].note)
+      const newControls = Object.assign({}, this.state.keyboardControls)
+      newControls[key].pressed = true
+      this.setState( { keyboardControls: newControls } )
+    }
+  }
+
+  handleKeyUp = (e) => {
+    const key = e.key.toLowerCase();
+    if(this.state.keyboardControls[key] && this.state.keyboardControls[key].pressed){
+      let note = this.state.keyboardControls[key].note
+      document.getElementById(note).firstElementChild.checked = false
+
+      this.state.synth.triggerRelease(this.state.keyboardControls[key].note)
+      const newControls = Object.assign({}, this.state.keyboardControls)
+      newControls[key].pressed = false
+      this.setState( { keyboardControls: newControls } )
+    }
+  }
   
+  handleOnClick = e => {
+    e.preventDefault()
+  }
+
   handleMouseDown = (e, note) => {
+    e.preventDefault()
+    if(!e.target.parentElement.firstElementChild.checked){
+      e.target.parentElement.firstElementChild.checked = true
+    }
     this.state.synth.triggerAttack(note)
   }
 
   handleMouseUp = (e, note) => {
+    e.preventDefault()
+    if(e.target.parentElement.firstElementChild.checked){
+      e.target.parentElement.firstElementChild.checked = false
+    }
     this.state.synth.triggerRelease(note)
   }
 
   handleMouseEnter = (e, note) => {
     // Mouseover triggers a new note if primary mouse button is clicked
-    if(e.buttons === 1){
+    if(e.buttons === 1 && !e.target.parentElement.firstElementChild.checked){
+      e.target.parentElement.firstElementChild.checked = true
       this.state.synth.triggerAttack(note)
     }
   }
 
-  handleMouseLeave = (note) => {
+  handleMouseLeave = (e, note) => {
+    if(e.target.parentElement.firstElementChild.checked){
+      e.target.parentElement.firstElementChild.checked = false;
+    }
     this.state.synth.triggerRelease(note)
   }
 
@@ -74,7 +109,8 @@ class JamrContainer extends Component{
         handleMouseDown={(e) => this.handleMouseDown(e, note)} 
         handleMouseUp={(e) => this.handleMouseUp(e, note)}
         handleMouseEnter={(e) => this.handleMouseEnter(e, note)}
-        handleMouseLeave={() => this.handleMouseLeave(note)} 
+        handleMouseLeave={(e) => this.handleMouseLeave(e, note)} 
+        handleOnClick={this.handleOnClick}
       />
     )
   }
@@ -95,7 +131,8 @@ class JamrContainer extends Component{
           handleMouseDown={(e) => this.handleMouseDown(e, note)} 
           handleMouseUp={(e) => this.handleMouseUp(e, note)}
           handleMouseEnter={(e) => this.handleMouseEnter(e, note)}
-          handleMouseLeave={() => this.handleMouseLeave(note)} 
+          handleMouseLeave={(e) => this.handleMouseLeave(e, note)} 
+          handleOnClick={ this.handleOnClick }
           />
         )
       }
@@ -105,12 +142,16 @@ class JamrContainer extends Component{
 
   render(){
     return(
-      <div id="jamr-container">
+      <div id="jamr-container"
+        onKeyDown={ this.handleKeyDown }
+        onKeyUp= { this.handleKeyUp }
+        tabIndex={ -1 }
+      >
         <div className="black-keys">
-          {this.makeBlackKeys()}
+          { this.makeBlackKeys() }
         </div>
         <div className="white-keys">
-          {this.makeWhiteKeys()}
+          { this.makeWhiteKeys() }
         </div>
         
       </div>
