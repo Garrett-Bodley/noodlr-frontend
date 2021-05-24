@@ -1,4 +1,5 @@
 .pushable {
+  display: inline-block;
   position: relative;
   /* border: none; */
   background: transparent;
@@ -45,10 +46,25 @@
     transform
     600ms
     cubic-bezier(.3, .7, .4, 1);
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 .pushable:hover {
   filter: brightness(110%);
 }
+
+.pushable:not(:hover) .toggle:checked ~ .front{
+  filter: brightness(110%)
+}
+
+.pushable:not(:hover) .toggle:checked ~ .edge{
+  filter: brightness(110%)
+}
+
 .pushable:hover .front {
   transform: translateY(-6px);
   transition:
@@ -56,7 +72,7 @@
     250ms
     cubic-bezier(.3, .7, .4, 1.5);
 }
-.pushable:active:hover .front {
+.toggle:checked ~ .front {
   transform: translateY(-2px);
   transition: transform 34ms;
 }
@@ -67,7 +83,7 @@
     250ms
     cubic-bezier(.3, .7, .4, 1.5);
 }
-.pushable:active:hover .shadow {
+.toggle:checked ~ .shadow {
   transform: translateY(1px);
   transition: transform 34ms;
 }
