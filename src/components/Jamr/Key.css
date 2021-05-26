@@ -24,6 +24,7 @@
     600ms
     cubic-bezier(.3, .7, .4, 1);
 }
+
 .edge {
   position: absolute;
   top: 0;
@@ -32,13 +33,16 @@
   height: 100%;
   border-radius: 12px;
 }
+
 .front {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  padding: 42px 22px;
+  height: 8em; 
+  width: 4em;
   border-radius: 12px;
   font-size: 1rem;
-  color: white;
   box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.5);
   will-change: transform;
   transform: translateY(-4px);
@@ -53,16 +57,37 @@
         -ms-user-select: none;
             user-select: none;
 }
-.pushable:hover {
+
+.white-keys > .pushable .front {
+  color: black;
+}
+
+.black-keys > .pushable > .front {
+  color: white;
+}
+
+.white-keys > .pushable:hover {
   filter: brightness(110%);
 }
 
-.pushable:not(:hover) .toggle:checked ~ .front{
+.black-keys > .pushable:hover {
+  filter: brightness(300%);
+}
+
+.white-keys > .pushable:not(:hover) .toggle:checked ~ .front{
   filter: brightness(110%)
 }
 
-.pushable:not(:hover) .toggle:checked ~ .edge{
+.black-keys > .pushable:not(:hover) .toggle:checked ~ .front{
+  filter: brightness(300%)
+}
+
+.white-keys > .pushable:not(:hover) .toggle:checked ~ .edge{
   filter: brightness(110%)
+}
+
+.black-keys > .pushable:not(:hover) .toggle:checked ~ .edge{
+  filter: brightness(300%)
 }
 
 .pushable:hover .front {
