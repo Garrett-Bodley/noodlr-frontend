@@ -10,6 +10,12 @@ class Navbar extends Component{
       return (
         <div className="navbar-end">
           <div className="navbar-item is-hoverable">
+            <Link className="subtitle" to='/noodlr'>Noodlr</Link>
+          </div>
+          <div className="navbar-item is-hoverable">
+            <Link className="subtitle" to='/jamr'>Jamr</Link>
+          </div>
+          <div className="navbar-item is-hoverable">
             <Link className="subtitle" to={`/users/${this.props.currentUser.id}`}>Profile</Link>
           </div>
           <div className="navbar-item is-hoverable">
@@ -20,6 +26,12 @@ class Navbar extends Component{
     }else{
       return(
         <div className="navbar-end">
+          <div className="navbar-item is-hoverable">
+            <Link className="subtitle" to='/noodlr'>Noodlr</Link>
+          </div>
+          <div className="navbar-item is-hoverable">
+            <Link className="subtitle" to='/jamr'>Jamr</Link>
+          </div>
           <div className="navbar-item is-hoverable">
             <Link className="subtitle" to="/login">Login</Link>
           </div>

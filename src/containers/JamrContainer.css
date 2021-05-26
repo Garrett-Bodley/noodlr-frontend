@@ -1,0 +1,27 @@
+#jamr-container{
+  height: 80%;
+  display: flex;
+  outline: none;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.white-keys{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.black-keys{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+#jamr-container:focus:not(:focus-visible) {
+  outline: none;
+}
