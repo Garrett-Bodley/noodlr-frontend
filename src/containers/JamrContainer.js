@@ -6,9 +6,12 @@ import './JamrContainer.css'
 
 class JamrContainer extends Component{
 
-  state = {
-    synth: JamrContainer.makeSynth(),
-    keyboardControls: JamrContainer.makeKeyboardControls()
+  componentDidMount(){
+    this.setState({
+      synth: JamrContainer.makeSynth(),
+      keyboardControls: JamrContainer.makeKeyboardControls()
+    })
+    this.setFocus()
   }
 
   static makeSynth = () => {
@@ -34,6 +37,10 @@ class JamrContainer extends Component{
 
     return keyboardControls
 
+  }
+
+  setFocus = () => {
+    document.getElementById('jamr-container').focus()
   }
 
   handleKeyDown = (e) => {
@@ -100,11 +107,13 @@ class JamrContainer extends Component{
 
   makeWhiteKeys = () => {
     let notes = ['F3', 'G3', 'A3', 'Bb3', 'C4', 'D4', 'E4', 'F4']
+    let triggers = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k']
     let color = 'EEEAD8'
     return notes.map((note, index) => 
       <Key 
         key={index}
         note={note}
+        trigger={triggers[index]}
         color={color} 
         handleMouseDown={(e) => this.handleMouseDown(e, note)} 
         handleMouseUp={(e) => this.handleMouseUp(e, note)}
@@ -117,6 +126,7 @@ class JamrContainer extends Component{
 
   makeBlackKeys = () => {
     let notes = ['Gb3', 'Ab3', '', 'B3', 'Db4', 'Eb4', '']
+    let triggers = ['w', 'e', '', 't', 'y', 'u', '']
     let color = '0a0502'
     return notes.map((note, index) => {
 
@@ -127,6 +137,7 @@ class JamrContainer extends Component{
           <Key 
           key={index}
           note={note}
+          trigger={triggers[index]}
           color={color}
           handleMouseDown={(e) => this.handleMouseDown(e, note)} 
           handleMouseUp={(e) => this.handleMouseUp(e, note)}
@@ -143,9 +154,9 @@ class JamrContainer extends Component{
   render(){
     return(
       <div id="jamr-container"
+        tabIndex={ 0 }
         onKeyDown={ this.handleKeyDown }
         onKeyUp= { this.handleKeyUp }
-        tabIndex={ -1 }
       >
         <div className="black-keys">
           { this.makeBlackKeys() }
