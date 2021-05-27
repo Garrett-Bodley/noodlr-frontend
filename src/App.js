@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux';
 import { getUser } from './actions/authActions'
 import UserContainer from './containers/UserContainer';
-import NoodlrContainer from './containers/NoodlrContainer';
+import NoodlrContainer from './containers/AdLibrContainer';
 import JamrContainer from './containers/JamrContainer';
 
 class App extends Component{
@@ -31,7 +31,7 @@ class App extends Component{
         <Switch>
           <Route exact path={['/login', '/signup']} render={() => <AuthContainer/> } />
           <Route exact path={['/jamr', '/']} render={() => <JamrContainer /> }/>
-          <Route exact path ="/noodlr" render={() => <NoodlrContainer />} />
+          <Route exact path ="/adlibr" render={() => <NoodlrContainer />} />
           <Route path='/vamps/:id' render={(routeProps) => <JamrContainer {...routeProps} />} />
           <Route path='/users' render={(routeProps) => <UserContainer {...routeProps} /> } />
         </Switch>

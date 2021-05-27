@@ -1,21 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as Tone from 'tone'
-import Key from '../components/Noodlr/Key'
-import './NoodlrContainer.css'
+import Key from '../components/AdLibr/Key'
+import './AdLibrContainer.css'
 
-class NoodlrContainer extends Component{
+class AdLibrContainer extends Component{
 
   componentDidMount(){
+    Tone.getDestination().volume.rampTo(0, 0.001)
     this.setState({
-      synth: NoodlrContainer.makeSynth(),
-      keyboardControls: NoodlrContainer.makeKeyboardControls()
+      synth: AdLibrContainer.makeSynth(),
+      keyboardControls: AdLibrContainer.makeKeyboardControls()
     })
     this.setFocus()
   }
 
   static makeSynth = () => {
-    return new Tone.PolySynth(Tone.Synth).set({ oscillator: { type: 'triangle8' } }).toDestination()
+    const synth =  new Tone.PolySynth(Tone.Synth).set({ oscillator: { type: 'triangle8' } }).toDestination()
+    synth.volume.value = 0;
+    return synth
   }
 
   static makeKeyboardControls = () => {
@@ -171,4 +174,4 @@ class NoodlrContainer extends Component{
 
 }
 
-export default connect()(NoodlrContainer)
+export default connect()(AdLibrContainer)

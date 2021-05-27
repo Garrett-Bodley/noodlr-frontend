@@ -10,10 +10,10 @@ class Navbar extends Component{
       return (
         <div className="navbar-end">
           <div className="navbar-item is-hoverable">
-            <Link className="subtitle" to='/noodlr'>Noodlr</Link>
+            <Link className="subtitle" to='/jamr'>Jamr</Link>
           </div>
           <div className="navbar-item is-hoverable">
-            <Link className="subtitle" to='/jamr'>Jamr</Link>
+            <Link className="subtitle" to='/adlibr'>AdLibr</Link>
           </div>
           <div className="navbar-item is-hoverable">
             <Link className="subtitle" to={`/users/${this.props.currentUser.id}`}>Profile</Link>
@@ -27,10 +27,10 @@ class Navbar extends Component{
       return(
         <div className="navbar-end">
           <div className="navbar-item is-hoverable">
-            <Link className="subtitle" to='/noodlr'>Noodlr</Link>
+            <Link className="subtitle" to='/jamr'>Jamr</Link>
           </div>
           <div className="navbar-item is-hoverable">
-            <Link className="subtitle" to='/jamr'>Jamr</Link>
+            <Link className="subtitle" to='/adlibr'>AdLibr</Link>
           </div>
           <div className="navbar-item is-hoverable">
             <Link className="subtitle" to="/login">Login</Link>
@@ -48,7 +48,7 @@ class Navbar extends Component{
     return(
       <nav className="navbar is-spaced" id="navbar">
         <div className="navbar-brand" >
-          <Link className="title is-1" to='/noodlr'>  Noodlr</Link>
+          <Link className="title is-1" to='/'>  Noodlr</Link>
         </div>
         {this.renderLinks()}
       </nav>
