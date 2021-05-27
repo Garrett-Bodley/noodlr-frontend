@@ -1,6 +1,5 @@
 import './App.css';
 import { Component } from 'react'
-import NoisemakerContainer from './containers/NoisemakerContainer'
 import AuthContainer from './containers/AuthContainer'
 import Navbar from './components/Navbar'
 import {
@@ -11,6 +10,7 @@ import {
 import { connect } from 'react-redux';
 import { getUser } from './actions/authActions'
 import UserContainer from './containers/UserContainer';
+import NoodlrContainer from './containers/NoodlrContainer';
 import JamrContainer from './containers/JamrContainer';
 
 class App extends Component{
@@ -30,9 +30,9 @@ class App extends Component{
         <br/>
         <Switch>
           <Route exact path={['/login', '/signup']} render={() => <AuthContainer/> } />
-          <Route exact path={['/noodlr', '/']} render={() => <NoisemakerContainer /> }/>
-          <Route exact path ="/jamr" render={() => <JamrContainer />} />
-          <Route path='/vamps/:id' render={(routeProps) => <NoisemakerContainer {...routeProps} />} />
+          <Route exact path={['/jamr', '/']} render={() => <JamrContainer /> }/>
+          <Route exact path ="/noodlr" render={() => <NoodlrContainer />} />
+          <Route path='/vamps/:id' render={(routeProps) => <JamrContainer {...routeProps} />} />
           <Route path='/users' render={(routeProps) => <UserContainer {...routeProps} /> } />
         </Switch>
         <br/>
