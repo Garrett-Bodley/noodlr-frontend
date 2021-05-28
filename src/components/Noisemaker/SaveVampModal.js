@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind'
-// import React from 'react'
 
 const SaveVampModal = ({pending, status, error, vamp, hideModal, handleOnSubmit, handleOnChange}) => {
   return(
