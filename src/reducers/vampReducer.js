@@ -22,7 +22,7 @@ export const vampReducer = (
     case 'ADD_VAMP':
       const vamp = action.payload
       vamp.notation = JSON.parse(action.payload.notation)
-      return {...state, vamps: [...state.vamps, vamp], pending: false}
+      return {...state, vamps: [...state.vamps, vamp], status: 'Vamp saved!', pending: false}
     case 'EDIT_VAMP':
       const editedVamp = action.payload
       editedVamp.notation = JSON.parse(action.payload.notation)
