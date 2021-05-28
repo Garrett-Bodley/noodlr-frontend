@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import DeleteUserModal from './DeleteUserModal'
 
 class EditUser extends Component{
   
@@ -6,7 +7,8 @@ class EditUser extends Component{
     username: this.props.currentUser.username,
     oldPassword: '',
     newPassword: '',
-    passwordConfirmation: ''
+    passwordConfirmation: '',
+    modalDisplayed: false
   }
 
   componentDidMount(){
@@ -14,6 +16,27 @@ class EditUser extends Component{
   }
 
   componentWillUnmount(){
+    this.props.clearStatus()
+  }
+
+  renderModal = () => {
+    if(!!this.state.modalDisplayed){
+      return (
+        <DeleteUserModal 
+          deleteUser={() => this.props.deleteUser(this.props.currentUser.id)} 
+          hideModal={this.hideModal}
+        />
+      )
+    }
+  }
+
+  displayModal = (e) => {
+    e.preventDefault()
+    this.setState({modalDisplayed: true})
+  }
+
+  hideModal = () => {
+    this.setState({modalDisplayed: false})
     this.props.clearStatus()
   }
 
@@ -41,6 +64,7 @@ class EditUser extends Component{
   render(){
     return(
       <div id="editUser" className="container card box login">
+        {this.renderModal()}
         <form onSubmit={this.handleOnSubmit} >
           <div className="field">
             <h2 className="is-size-2">Edit Account:</h2>
@@ -77,7 +101,7 @@ class EditUser extends Component{
             <button className="button is-link" type="submit">Save Changes</button>
           </div>
           <div className="field">
-            <button className="button is-danger" onClick={() => this.props.deleteUser(this.props.currentUser.id)}>Delete Account</button>
+            <button className="button is-danger" onClick={this.displayModal}>Delete Account</button>
           </div>
         </form>
       </div>
