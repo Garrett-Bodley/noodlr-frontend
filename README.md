@@ -14,7 +14,7 @@
 - React
 - Redux and Thunk Middleware
 - Javascript ES6
-- Tone.js
+- [Tone.js](https://tonejs.github.io/)
 
 ## Install
 
@@ -27,12 +27,6 @@ npm install
 
 ```sh
 npm start
-```
-
-## Run tests
-
-```sh
-npm run test
 ```
 
 ## Author
