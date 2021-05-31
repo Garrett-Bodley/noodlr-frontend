@@ -8,6 +8,8 @@
 
 > This website was an experiment in working with webaudio while incorporating what I've learned about React Redux. It provides users with a simple, online, step sequencer that they can use to create musical vamps.
 
+### 🔚 [Backend](https://github.com/Garrett-Bodley/noodlr-backend)
+
 ### ✨ [Demo](https://practical-pare-d3cda2.netlify.app/)
 
 ## Technologies
