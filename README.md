@@ -10,7 +10,7 @@
 
 ### ✨ [Demo](https://practical-pare-d3cda2.netlify.app/)
 
-### 🔙 🔚 [Backend Repo](https://github.com/Garrett-Bodley/noodlr-backend)
+### 🔙 [Backend Repo](https://github.com/Garrett-Bodley/noodlr-backend)
 
 ## Technologies
 - React
