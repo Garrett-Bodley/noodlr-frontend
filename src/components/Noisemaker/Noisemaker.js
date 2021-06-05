@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
 import * as Tone from 'tone'
+import * as LZString from 'lz-string'
 import './Noisemaker.css'
 
 import { saveVamp, getVamp, editVamp } from '../../actions/vampActions'
@@ -9,6 +10,7 @@ import SaveVampModal from './SaveVampModal'
 import PlayButton from './PlayButton'
 import TempoDisplay from './TempoDisplay'
 import VolumeDisplay from './VolumeDisplay'
+import ShareModal from './ShareModal'
 // import Recorder from './Recorder'
 
 class NoiseMaker extends Component {
@@ -86,7 +88,12 @@ class NoiseMaker extends Component {
       if(this.props.vamps.length > 0){
         // If the current url denotes a vampId, load corresponding vamp from the store
         let vamp = this.props.vamps.find(vamp => vamp.id === this.props.vampId)
-        this.setState({grid: vamp.notation, name: vamp.name, tempo: vamp.tempo, volume: vamp.volume})
+        this.setState({
+          grid: vamp.notation, 
+          name: vamp.name, 
+          tempo: vamp.tempo, 
+          volume: vamp.volume
+        })
       }else{
         // otherwise execute the getVamp action, querying the backend to load the specific vamp
         this.props.getVamp(this.props.vampId)
@@ -274,6 +281,29 @@ class NoiseMaker extends Component {
     }
   }
 
+  generateLink = (vamp) => {
+    // encode grid using LZstring to use as a query string in a url.
+    // probably rename this component to encode grid and pass it to a function inside of the share modal
+
+    let string = LZString.compressToEncodedURIComponent(JSON.stringify(vamp))
+    let decoded = LZString.decompressFromEncodedURIComponent(string)
+
+    debugger
+  }
+
+  asciiToHex = (string) => {
+    // hexArray = []
+    // for(let i = 0; i < string.length; i++){
+    //   let hex = parseInt(string.charCodeAt(i), 36)
+    //   hexArray.push(hex)
+    // }
+    // return hexArray.join('')
+  }
+
+  hexToAscii = (hex) => {
+
+  }
+
   render(){
     return(
       <div className="tones">
@@ -288,6 +318,7 @@ class NoiseMaker extends Component {
         <VolumeDisplay volume={this.state.volume} handleVolumeChange={this.handleVolumeChange} />
 
         <button className="button is-rounded" onClick={this.displayModal}>{!!this.props.vampId ? 'Save Changes' : 'Save Vamp'}</button>
+        < ShareModal generateLink={() => this.generateLink(this.state.grid)} />
         {/* <Recorder saveRecording={this.saveRecording} recorder={this.makeRecorder()} /> */}
         
       </div>
