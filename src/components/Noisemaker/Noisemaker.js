@@ -81,17 +81,22 @@ class NoiseMaker extends Component {
   }
 
   componentDidMount(){
+    // Check if a vampId is being passed down from router props
     if(!!this.props.vampId){
       if(this.props.vamps.length > 0){
+        // If the current url denotes a vampId, load corresponding vamp from the store
         let vamp = this.props.vamps.find(vamp => vamp.id === this.props.vampId)
         this.setState({grid: vamp.notation, name: vamp.name, tempo: vamp.tempo, volume: vamp.volume})
       }else{
+        // otherwise execute the getVamp action, querying the backend to load the specific vamp
         this.props.getVamp(this.props.vampId)
       }
     }
   }
 
   componentDidUpdate(prevProps){
+    // Component will update when executing getVamp action.
+    // Load the vamp corresponding to the id designated in the current url (passed as router props)
     if(prevProps.vamps.length === 0 && !!prevProps.vampId && this.props.vamps.length > 0){
       let vamp = this.props.vamps.find(vamp => vamp.id === this.props.vampId)
       this.setState({grid: vamp.notation, tempo: vamp.tempo, volume: vamp.volume})
