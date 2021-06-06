@@ -281,14 +281,22 @@ class NoiseMaker extends Component {
     }
   }
 
-  generateLink = (vamp) => {
-    // encode grid using LZstring to use as a query string in a url.
-    // probably rename this component to encode grid and pass it to a function inside of the share modal
+  encodeGrid = (grid) => {
+    // encode grid using LZW compression algorithm into a compressed, URI safe string.
 
-    let string = LZString.compressToEncodedURIComponent(JSON.stringify(vamp))
-    let decoded = LZString.decompressFromEncodedURIComponent(string)
+    const notation = grid.map(row => {
+      return row.map(note => note.isActive)
+    })
 
-    debugger
+    const vamp = {
+      notation: notation,
+      tempo: this.state.tempo,
+      volume: this.state.volume,
+      name: this.state.name
+    }
+
+    return LZString.compressToEncodedURIComponent(JSON.stringify(vamp))
+
   }
 
   asciiToHex = (string) => {
@@ -318,7 +326,7 @@ class NoiseMaker extends Component {
         <VolumeDisplay volume={this.state.volume} handleVolumeChange={this.handleVolumeChange} />
 
         <button className="button is-rounded" onClick={this.displayModal}>{!!this.props.vampId ? 'Save Changes' : 'Save Vamp'}</button>
-        < ShareModal generateLink={() => this.generateLink(this.state.grid)} />
+        < ShareModal encodeGrid={() => this.encodeGrid(this.state.grid)} />
         {/* <Recorder saveRecording={this.saveRecording} recorder={this.makeRecorder()} /> */}
         
       </div>
