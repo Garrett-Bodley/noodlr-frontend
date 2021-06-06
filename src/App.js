@@ -30,7 +30,7 @@ class App extends Component{
         <br/>
         <Switch>
           <Route exact path={['/login', '/signup']} render={() => <AuthContainer/> } />
-          <Route exact path={['/jamr', '/']} render={() => <JamrContainer /> }/>
+          <Route exact path={['/jamr', '/']} component={ JamrContainer }/>
           <Route exact path ="/adlibr" render={() => <NoodlrContainer />} />
           <Route path='/vamps/:id' render={(routeProps) => <JamrContainer {...routeProps} />} />
           <Route path='/users' render={(routeProps) => <UserContainer {...routeProps} /> } />
