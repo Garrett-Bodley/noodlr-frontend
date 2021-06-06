@@ -325,7 +325,7 @@ class NoiseMaker extends Component {
 
         <VolumeDisplay volume={this.state.volume} handleVolumeChange={this.handleVolumeChange} />
 
-        <button className="button is-rounded" onClick={this.displayModal}>{!!this.props.vampId ? 'Save Changes' : 'Save Vamp'}</button>
+        <button className="button is-rounded is-primary" onClick={this.displayModal}>{!!this.props.vampId ? 'Save Changes' : 'Save Vamp'}</button>
         < ShareModal encodeGrid={() => this.encodeGrid(this.state.grid)} />
         {/* <Recorder saveRecording={this.saveRecording} recorder={this.makeRecorder()} /> */}
         
