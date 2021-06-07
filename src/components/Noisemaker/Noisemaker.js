@@ -98,6 +98,8 @@ class NoiseMaker extends Component {
         // otherwise execute the getVamp action, querying the backend to load the specific vamp
         this.props.getVamp(this.props.vampId)
       }
+    }else if(this.props.queryString){
+      this.loadQueryData(this.props.queryString)
     }
   }
 
@@ -299,17 +301,27 @@ class NoiseMaker extends Component {
 
   }
 
-  asciiToHex = (string) => {
-    // hexArray = []
-    // for(let i = 0; i < string.length; i++){
-    //   let hex = parseInt(string.charCodeAt(i), 36)
-    //   hexArray.push(hex)
-    // }
-    // return hexArray.join('')
+  decodeQueryString = (string) => {
+    return JSON.parse(LZString.decompressFromEncodedURIComponent(string))
   }
 
-  hexToAscii = (hex) => {
+  loadQueryData = (string) => {
+    const decoded = this.decodeQueryString(string)
 
+    const decodedGrid = this.state.grid.map((row, rowIndex) => {
+      return row.map((note, noteIndex) => {
+        let newNote = Object.assign({}, note)
+        newNote.isActive = decoded.notation[rowIndex][noteIndex]
+        return newNote
+      })
+    })
+
+    this.setState({
+      name: decoded.name,
+      tempo: decoded.tempo,
+      volume: decoded.volume,
+      grid: loadedGrid
+    })
   }
 
   render(){
