@@ -307,21 +307,25 @@ class NoiseMaker extends Component {
 
   loadQueryData = (string) => {
     const decoded = this.decodeQueryString(string)
-
-    const decodedGrid = this.state.grid.map((row, rowIndex) => {
-      return row.map((note, noteIndex) => {
-        let newNote = Object.assign({}, note)
-        newNote.isActive = decoded.notation[rowIndex][noteIndex]
-        return newNote
+    if(!decoded){
+      window.location.href = '/'
+    }else{
+      const decodedGrid = this.state.grid.map((row, rowIndex) => {
+        return row.map((note, noteIndex) => {
+          let newNote = Object.assign({}, note)
+          newNote.isActive = decoded.notation[rowIndex][noteIndex]
+          return newNote
+        })
       })
-    })
 
-    this.setState({
-      name: decoded.name,
-      tempo: decoded.tempo,
-      volume: decoded.volume,
-      grid: decodedGrid
-    })
+      this.setState({
+        name: decoded.name,
+        tempo: decoded.tempo,
+        volume: decoded.volume,
+        grid: decodedGrid
+      })
+    }
+
   }
 
   render(){
