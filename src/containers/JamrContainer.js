@@ -12,7 +12,7 @@ class JamrContainer extends Component{
       return <NoiseMaker vampId={vampId} />
     }else if(!!this.props.location.search){
       if(this.props.location.search.substr(0, 6) === '?vamp='){
-        return <NoiseMaker query={this.props.location.search.substr(6)} />
+        return <NoiseMaker queryString={this.props.location.search.substr(6)} />
       }else{
         return <Redirect to='/'/>
       }
