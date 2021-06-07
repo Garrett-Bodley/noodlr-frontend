@@ -320,7 +320,7 @@ class NoiseMaker extends Component {
       name: decoded.name,
       tempo: decoded.tempo,
       volume: decoded.volume,
-      grid: loadedGrid
+      grid: decodedGrid
     })
   }
 
