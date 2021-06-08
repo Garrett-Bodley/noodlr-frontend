@@ -4,12 +4,6 @@ const ShareModal = ({ encodeGrid }) => {
 
   const [visible, setVisible] = useState(false);
   const [shareURL, setShareURL] = useState('')
-  // grid can be passed as an encoded URI safe string. Just need to offer that as a url in a field that can be copied by a user
-  // then need to figure out how to catch if there's a query string and then load the vamp, but only if that string is valid
-
-  // let match = useRouteMatch()
-  // let location = useLocation()
-  // debugger
 
   const showModal = () => {
     setShareURL(createShareableURL())
@@ -21,7 +15,7 @@ const ShareModal = ({ encodeGrid }) => {
   }
 
   const createShareableURL = () => {
-    return `${window.location.host}?vamp=${encodeGrid()}`
+    return `https://${window.location.host}?vamp=${encodeGrid()}`
   }
 
   const copyToClipboard = () => {
