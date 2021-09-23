@@ -1,0 +1,21 @@
+.tones {
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: fit-content;
+  margin: 0 auto;
+}
+
+.synth-container {
+  max-width: 60em;
+}
+
+.note {
+  border-radius: 5px;
+  height: 4em;
+  width: 4em;
+  border-style: solid;
+  border-width: 1px;
+  border-color:lightgray;
+  margin: 2px;
+  outline: none;
+}
