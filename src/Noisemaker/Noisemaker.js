@@ -47,7 +47,7 @@ const Noisemaker = () => {
   };
 
   return (
-    <div id="noisemaker" className="synth-container">
+    <div id="noisemaker" className="p-4">
       <section id="grid" className="tones">{renderGrid()}</section>
     </div>
   );
