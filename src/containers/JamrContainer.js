@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import NoiseMaker from '../components/Noisemaker/Noisemaker'
+import NoiseMaker from '../Noisemaker/Noisemaker'
 
 
 class JamrContainer extends Component{
