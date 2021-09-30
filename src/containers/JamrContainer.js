@@ -24,13 +24,9 @@ class JamrContainer extends Component {
 
   render() {
     return (
-      <div className="container jamr-container">
-        <section className="card is-flex is-rounded is-flex-direction-column has-text-centered is-align-items-center">
-          <div>
-            {this.renderNoiseMaker()}
-          </div>
-        </section>
-      </div>
+      <main className="container jamr-container">
+        {this.renderNoiseMaker()}
+      </main>
     );
   }
 }
