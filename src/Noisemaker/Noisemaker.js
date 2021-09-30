@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled from 'styled-components';
-import { grid, layout, space } from 'styled-system';
+import { color, grid, layout, space } from 'styled-system';
 
 import Note from "./Note";
 import makeSynths from "../utilities/makeSynths";
@@ -12,17 +12,17 @@ import AspectRatioContainer from "../utilities/AspectRatio/AspectRatioContainer"
 import "./Noisemaker.css";
 
 const Container = styled.section`
-  ${'' /* display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas:
-    "tones"
-    "controls"; */}
   ${grid};
   ${layout}
 `
 const Aspect = styled(AspectRatioContainer)`
-  grid-area: tones;
+  ${grid}
   ${space};
+`
+
+const ControlsWrapper = styled.article`
+  ${grid};
+  ${color};
 `
 
 const Noisemaker = () => {
@@ -65,12 +65,30 @@ const Noisemaker = () => {
   // };
 
   return (
-    <Container display="grid" gridTemplateRows="1fr 1fr" gridTemplateAreas={'"tones" "controls"'}>
-      <Aspect width={"90%"} mx="auto" ratio={9/16}>
+    <Container display="grid" gridTemplateRows="1fr 1fr" gridTemplateAreas={' "tones" "controls" '}>
+      <Aspect gridArea="tones" width={"90%"} mx="auto" ratio={9/16}>
       </Aspect>
-      <div style={{"grid-area": "controls", "background-color": "slategray"}}>controls</div>
+      <ControlsWrapper gridArea="controls" bg="slategray">controls</ControlsWrapper>
     </Container>
   );
 };
 
 export default Noisemaker;
+
+
+
+//  1. Make a grid component
+//    a. Stub out grid layout within component
+//    b. Create button component
+//      1. Build 3d button component.
+//      2. Set up color prop capability
+//    c. Fill grid with buttons.
+//    d. Map buttons & button state to synth
+//    e. Figure out how to display which beat is active.
+//  2. Stub out basic controls component.
+//    a. Start/Stop button
+//    b. Tempo Slider
+//    c. Volume Slider
+//    d. Save Button (****ONLY WHEN LOGGED IN****)
+//    e. Share button
+//  3. Figure out responsive design.
