@@ -20,7 +20,7 @@ const Aspect = styled(AspectRatioContainer)`
   ${space};
 `
 
-const ControlsWrapper = styled.article`
+const ControlsWrapper = styled.section`
   ${grid};
   ${color};
 `
