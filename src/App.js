@@ -27,7 +27,6 @@ class App extends Component{
     return (
       <Router >
         <Navbar />
-        <br/>
         <Switch>
           <Route exact path={['/login', '/signup']} render={() => <AuthContainer/> } />
           <Route exact path={['/jamr', '/']} component={ JamrContainer }/>
