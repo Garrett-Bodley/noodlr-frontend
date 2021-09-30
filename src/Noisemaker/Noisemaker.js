@@ -7,7 +7,9 @@ import makeSynths from "../utilities/makeSynths";
 import makeGrid from "../utilities/makeGrid";
 import gridColors from "../utilities/gridColors";
 import classNames from "classnames/bind";
+
 import AspectRatioContainer from "../utilities/AspectRatio/AspectRatioContainer";
+import Grid from './Grid'
 
 import "./Noisemaker.css";
 
@@ -67,6 +69,7 @@ const Noisemaker = () => {
   return (
     <Container display="grid" gridTemplateRows="1fr 1fr" gridTemplateAreas={' "tones" "controls" '}>
       <Aspect gridArea="tones" width={"90%"} mx="auto" ratio={9/16}>
+        <Grid rowCount={9} beatCount={16}></Grid>
       </Aspect>
       <ControlsWrapper gridArea="controls" bg="slategray">controls</ControlsWrapper>
     </Container>
@@ -78,7 +81,7 @@ export default Noisemaker;
 
 
 //  1. Make a grid component
-//    a. Stub out grid layout within component
+//    a̶.̶ S̶t̶u̶b̶ o̶u̶t̶ g̶r̶i̶d̶ l̶a̶y̶o̶u̶t̶ w̶i̶t̶h̶i̶n̶ c̶o̶m̶p̶o̶n̶e̶n̶t̶
 //    b. Create button component
 //      1. Build 3d button component.
 //      2. Set up color prop capability
