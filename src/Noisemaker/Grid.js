@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import Tone from "./Tone/Tone";
 import { grid, layout } from "styled-system";
+
+import Row from './Row/Row'
 
 const Article = styled.article`
   ${grid};
@@ -8,9 +11,23 @@ const Article = styled.article`
 `;
 
 const Grid = ({ rowCount, beatCount }) => {
-  
+  const renderRows = (rowCount, beatCount) => {
+    return [...Array(rowCount)].map((_, index) => (
+      <Row key={ index } beatCount={beatCount} />
+    ));
+  };
 
-  return <Article display={"grid"} gridTemplateRows={`repeat(${rowCount}, 1fr)`} gridTemplateColumns={`repeat(${beatCount}, 1fr)`}></Article>;
+  return (
+    <Article
+      width="100%"
+      height="100%"
+      display="grid"
+      gridTemplateRows={`repeat(${rowCount}, 1fr)`}
+      gridGap="2px"
+    >
+      {renderRows(rowCount, beatCount)}
+    </Article>
+  );
 };
 
 export default Grid;
