@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { border, color, layout, space, grid } from "styled-system";
+import { layout, space, grid } from "styled-system";
 
 import Tone from "../Tone/Tone";
 
@@ -10,16 +10,10 @@ const StyledRow = styled.div`
   ${grid}
 `;
 
-const Box = styled.div`
-  ${border};
-  ${color};
-  ${layout};
-`;
-
-const Row = ({ beatCount, color }) => {
+const Row = ({ beatCount, color, rowNum }) => {
   const displayTones = (beatCount, color) => {
     return [...Array(beatCount)].map((_, index) => {
-      return <Tone key={index} color={color} />
+      return <Tone key={index} rowNum={rowNum} beatNum={index} color={color} />;
     });
   };
 
