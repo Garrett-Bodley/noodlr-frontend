@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { border, color, layout, position, space } from "styled-system";
 import AspectRatioContainer from "../../utilities/AspectRatio/AspectRatioContainer";
-import "./tone.css";
 
 const Button = styled.button`
   ${border};
