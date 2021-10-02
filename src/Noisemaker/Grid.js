@@ -10,10 +10,10 @@ const Article = styled.article`
   ${layout}
 `;
 
-const Grid = ({ rowCount, beatCount }) => {
+const Grid = ({ rowCount, beatCount, colors }) => {
   const renderRows = (rowCount, beatCount) => {
     return [...Array(rowCount)].map((_, index) => (
-      <Row key={ index } beatCount={beatCount} />
+      <Row key={ index } beatCount={beatCount} color={index < 6 ? colors.primary : colors.secondary} />
     ));
   };
 
