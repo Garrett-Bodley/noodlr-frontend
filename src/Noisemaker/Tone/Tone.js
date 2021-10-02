@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { border, color, layout, space } from "styled-system";
+import { border, color, layout, position, space } from "styled-system";
 import AspectRatioContainer from "../../utilities/AspectRatio/AspectRatioContainer";
 import "./tone.css";
 
@@ -8,12 +8,38 @@ const Button = styled.button`
   ${border};
   ${color};
   ${layout};
+  ${position};
   ${space};
-  box-shadow: -1px 3px 4px 1px #B5B1BF;
 
-  &:checked {
-    box-shadow: inset -1px 3px 4px 1px #B5B1BF;
+  &::before {
+    content: "";
+    background: transparent;
+    position: absolute;
+    inset: 0;
+    border: none;
+    border-radius: 4px;
+    background-color: ${props => props.activeColor || '#38CC77'};
+    box-shadow: inset -1px 1px 3px 0px #5e5e5e;
+    opacity: ${props => props.isPressed ? "100%" : "0%"};
+    will-change: opacity;
+    transition: opacity 100ms ease;
   }
+
+  &::after {
+    content: "";
+    background: transparent;
+    position: absolute;
+    inset: 0;
+    border: none;
+    border-radius: 4px;
+    background-color: lightgray;
+    box-shadow: -1px 2px 3px 0px #5E5E5E;
+    opacity: ${props => props.isPressed ? "0%" : "100%"};
+    ${'' /* opacity: 0%; */}
+    will-change: opacity;
+    transition: opacity 100ms ease-in;
+  }
+
 `;
 
 const Checkbox = styled.input`
@@ -32,11 +58,14 @@ const Tone = (props) => {
     <AspectRatioContainer {...props}>
       <Button
         onClick={handleOnClick}
+        position="relative"
+        isPressed={isPressed}
         width="100%"
         height="100%"
         border="1px solid black"
-        bg={isPressed ? props.color : "lightgray"}
-        borderRadius="8px"
+        bg="lightgray"
+        activeColor={props.color}
+        borderRadius="4px"
       />
     </AspectRatioContainer>
   );
