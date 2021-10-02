@@ -68,8 +68,8 @@ const Noisemaker = () => {
 
   return (
     <Container display="grid" gridTemplateRows="1fr 1fr" gridTemplateAreas={' "tones" "controls" '}>
-      <Aspect gridArea="tones" width={"90%"} mx="auto" ratio={9/16}>
-        <Grid rowCount={9} beatCount={16}></Grid>
+      <Aspect gridArea="tones" width={"90%"} mx="auto" my="1em" ratio={9/16}>
+        <Grid rowCount={9} beatCount={16} colors={{primary: '#38CC77', secondary: '#DE4839'}}></Grid>
       </Aspect>
       <ControlsWrapper gridArea="controls" bg="slategray">controls</ControlsWrapper>
     </Container>
@@ -82,10 +82,9 @@ export default Noisemaker;
 
 //  1. Make a grid component
 //    a̶.̶ S̶t̶u̶b̶ o̶u̶t̶ g̶r̶i̶d̶ l̶a̶y̶o̶u̶t̶ w̶i̶t̶h̶i̶n̶ c̶o̶m̶p̶o̶n̶e̶n̶t̶
-//    b. Create button component
-//      1. Build 3d button component.
-//      2. Set up color prop capability
-//    c. Fill grid with buttons.
+//    b̶.̶ C̶r̶e̶a̶t̶e̶ b̶u̶t̶t̶o̶n̶ c̶o̶m̶p̶o̶n̶e̶n̶t̶
+//      1̶.̶ S̶e̶t̶ u̶p̶ c̶o̶l̶o̶r̶ p̶r̶o̶p̶ c̶a̶p̶a̶b̶i̶l̶i̶t̶y̶
+//    c̶.̶ F̶i̶l̶l̶ g̶r̶i̶d̶ w̶i̶t̶h̶ b̶u̶t̶t̶o̶n̶s̶.̶
 //    d. Map buttons & button state to synth
 //    e. Figure out how to display which beat is active.
 //  2. Stub out basic controls component.
