@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Tone from "./Tone/Tone";
 import { grid, layout } from "styled-system";
 
 import Row from './Row/Row'
