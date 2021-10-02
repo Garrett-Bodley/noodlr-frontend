@@ -41,10 +41,6 @@ const Button = styled.button`
 
 `;
 
-const Checkbox = styled.input`
-  visibility: hidden;
-`
-
 const Tone = (props) => {
 
   const [isPressed, setIsPressed] = useState(false)
