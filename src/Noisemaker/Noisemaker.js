@@ -68,7 +68,7 @@ const Noisemaker = () => {
 
   return (
     <Container display="grid" gridTemplateRows="1fr 1fr" gridTemplateAreas={' "tones" "controls" '}>
-      <Aspect gridArea="tones" width={"90%"} mx="auto" my="1em" ratio={9/16}>
+      <Aspect gridArea="tones" width="90%" mx="auto" my="1em" ratio={9/16}>
         <Grid rowCount={9} beatCount={16} colors={{primary: '#38CC77', secondary: '#DE4839'}}></Grid>
       </Aspect>
       <ControlsWrapper gridArea="controls" bg="slategray">controls</ControlsWrapper>
@@ -94,3 +94,4 @@ export default Noisemaker;
 //    d. Save Button (****ONLY WHEN LOGGED IN****)
 //    e. Share button
 //  3. Figure out responsive design.
+//  4. Fix landscape view for mobile
