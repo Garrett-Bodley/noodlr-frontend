@@ -23,7 +23,7 @@ const Grid = ({ rowCount, beatCount, colors }) => {
       height="100%"
       display="grid"
       gridTemplateRows={`repeat(${rowCount}, 1fr)`}
-      gridGap="2px"
+      gridGap="4px"
     >
       {renderRows(rowCount, beatCount)}
     </Article>
