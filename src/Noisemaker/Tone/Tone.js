@@ -35,7 +35,7 @@ const Tone = (props) => {
         width="100%"
         height="100%"
         border="1px solid black"
-        bg={isPressed ? 'coral' : "lightgray"}
+        bg={isPressed ? props.color : "lightgray"}
         borderRadius="8px"
       />
     </AspectRatioContainer>

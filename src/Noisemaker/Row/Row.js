@@ -15,11 +15,11 @@ const Box = styled.div`
   ${layout};
 `;
 
-const Row = ({ beatCount }) => {
-  const displayTones = (beatCount) => {
-    return [...Array(beatCount)].map((_, index) => (
-      <Tone key={index} />
-    ));
+const Row = ({ beatCount, color }) => {
+  const displayTones = (beatCount, color) => {
+    return [...Array(beatCount)].map((_, index) => {
+      return <Tone key={index} color={color} />
+    });
   };
 
   return (
@@ -30,7 +30,7 @@ const Row = ({ beatCount }) => {
       gridTemplateColumns={`repeat(${beatCount}, 1fr)`}
       gridGap="2px"
     >
-      {displayTones(beatCount)}
+      {displayTones(beatCount, color)}
     </StyledRow>
   );
 };
