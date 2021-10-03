@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { grid, layout } from "styled-system";
 
 import Row from './Row/Row'
-import { SynthProvider } from "../utilities/SynthContext";
+import { SynthProvider } from "../utilities/SynthUtilities/SynthContext";
 
 const Article = styled.article`
   ${grid};
