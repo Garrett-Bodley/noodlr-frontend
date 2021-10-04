@@ -10,7 +10,10 @@ const Article = styled.article`
   ${layout}
 `;
 
-const Grid = ({ rowCount, beatCount, colors }) => {
+const Grid = (props) => {
+
+  const {rowCount, beatCount, colors} = props;
+
   const renderRows = (rowCount, beatCount) => {
     return [...Array(rowCount)].map((_, index) => (
       <Row key={ index } beatCount={beatCount} rowNum={index} color={index < 6 ? colors.primary : colors.secondary} />
@@ -20,6 +23,7 @@ const Grid = ({ rowCount, beatCount, colors }) => {
   return (
     <SynthProvider>
       <Article
+        {...props}
         width="100%"
         height="100%"
         display="grid"
