@@ -103,3 +103,4 @@ export default Noisemaker;
 //  3. Figure out responsive design.
 //  4. Fix landscape view for mobile
 //  5. Refactor so Noisemaker can accept alternate notes/number of beats
+//  6. Focus states for tones.
