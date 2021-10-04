@@ -23,6 +23,10 @@ const Aspect = styled(AspectRatioContainer)`
   ${space};
 `
 
+const StyledGrid = styled(Grid)`
+  ${space}
+`
+
 const ControlsWrapper = styled.section`
   ${grid};
   ${color};
@@ -70,9 +74,7 @@ const Noisemaker = () => {
   return (
     <VampProvider>
       <Container display="grid" gridTemplateRows="1fr 1fr" gridTemplateAreas={' "tones" "controls" '}>
-        <Aspect gridArea="tones" width="90%" mx="auto" my="1em" ratio={9/16}>
-          <Grid rowCount={9} beatCount={16} colors={{primary: '#38CC77', secondary: '#DE4839'}}></Grid>
-        </Aspect>
+          <StyledGrid rowCount={9} beatCount={16} py="2em" colors={{primary: '#38CC77', secondary: '#DE4839'}}></StyledGrid>
         <ControlsWrapper gridArea="controls" bg="slategray"><button>Toggle Play/Pause</button></ControlsWrapper>
       </Container>
     </VampProvider>
