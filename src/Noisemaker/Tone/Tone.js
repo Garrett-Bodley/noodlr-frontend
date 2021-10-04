@@ -17,7 +17,7 @@ const Button = styled.button`
     position: absolute;
     inset: 0;
     border: none;
-    border-radius: 4px;
+    border-radius: 3px;
     background-color: ${(props) => props.activeColor || "#38CC77"};
     box-shadow: 
       inset 0.6px 0.1px 0.3px rgba(20, 31, 25, 0.36),
@@ -35,14 +35,13 @@ const Button = styled.button`
     position: absolute;
     inset: 0;
     border: none;
-    border-radius: 4px;
+    border-radius: 3px;
     background-color: lightgray;
     box-shadow: 
       0.1px 0.1px 0.3px rgba(0, 0, 0, 0.238),
       0.2px 0.4px 0.9px rgba(0, 0, 0, 0.352), 
       1px 2px 4px rgba(0, 0, 0, 0.59);
     opacity: ${(props) => (props.isPressed ? "0%" : "100%")};
-    ${"" /* opacity: 0%; */}
     will-change: opacity;
     transition: opacity 100ms ease-in;
   }
