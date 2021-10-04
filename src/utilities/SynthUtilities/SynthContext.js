@@ -7,7 +7,7 @@ import makeGrid from '../makeGrid';
 const SynthContext = React.createContext()
 
 const toneConfig = (repeat, tempo,) => {
-  Tone.Transport.bpm = tempo
+  Tone.Transport.bpm.value = tempo
   Tone.Transport.scheduleRepeat(repeat, "8n")
 }
 
