@@ -47,7 +47,7 @@ const Tone = (props) => {
 
   const handleOnClick = () => {
     setIsPressed((prevState) => !prevState);
-    toggleNote();
+    toggleNote(props.rowNum, props.beatNum);
   };
 
   return (
