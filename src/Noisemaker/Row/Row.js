@@ -24,7 +24,6 @@ const Row = ({ beatCount, color, rowNum }) => {
       width="100%"
       gridTemplateColumns={`repeat(${beatCount}, 1fr)`}
       gridGap="4px"
-      // paddingRight=".5em"
     >
       {displayTones(beatCount, color)}
     </StyledRow>
