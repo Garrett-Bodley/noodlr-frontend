@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { grid, layout } from "styled-system";
 
 import Row from './Row/Row'
-import { SynthProvider } from "../utilities/SynthUtilities/SynthContext";
 
 const Article = styled.article`
   ${grid};
@@ -21,18 +20,16 @@ const Grid = (props) => {
   };
 
   return (
-    <SynthProvider>
-      <Article
-        {...props}
-        width="100%"
-        height="100%"
-        display="grid"
-        gridTemplateRows={`repeat(${rowCount}, 1fr)`}
-        gridGap="4px"
-      >
-        {renderRows(rowCount, beatCount)}
-      </Article>
-    </SynthProvider>
+    <Article
+      {...props}
+      width="100%"
+      height="100%"
+      display="grid"
+      gridTemplateRows={`repeat(${rowCount}, 1fr)`}
+      gridGap="4px"
+    >
+      {renderRows(rowCount, beatCount)}
+    </Article>
   );
 };
 
