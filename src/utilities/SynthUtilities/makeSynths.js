@@ -1,6 +1,4 @@
-import * as Tone from "tone";
-
-const makeSynths = () => {
+const makeSynths = (Tone) => {
   // Make pitched synths
   const synths = [];
   for (let i = 0; i < 6; i++) {
