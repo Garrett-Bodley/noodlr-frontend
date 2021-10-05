@@ -167,7 +167,7 @@ class NoiseMaker extends Component {
       Tone.start();
       this.setState({ activated: true, playing: true });
       Tone.getDestination().volume.rampTo(this.state.volume, 0.001);
-      this.playMusic();
+      this.playMusic();  
       return;
     }
 
