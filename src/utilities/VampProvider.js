@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef } from "react";
 import makeGrid from "../makeGrid";
 
 const VampContext = React.createContext();
@@ -13,20 +13,11 @@ export const useVampUpdate = () => {
 };
 
 const VampProvider = ({ children }) => {
-  const [vamp, setVamp] = useState(makeGrid());
+  const vamp = useRef(makeGrid());
 
   const toggleNote = (clickedRow, clickedNote) => {
-    const newGrid = vamp.map((row, rowIndex) => {
-      return row.map((note, noteIndex) => {
-        if (clickedRow === rowIndex && clickedNote === noteIndex) {
-          return { ...note, isActive: !note.isActive };
-        } else {
-          return { ...note };
-        }
-      });
-    });
-
-    setVamp(newGrid);
+    let note = vamp.current[clickedRow][clickedNote]
+    note.isActive = !note.isActive
   };
 
   return (
