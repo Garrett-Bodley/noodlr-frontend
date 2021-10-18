@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useCallback, useRef, useState } from "react";
 import * as Tone from "tone";
-import makeSynths from "./makeSynths";
+import useSynths from "../useSynths"
 import { useVamp } from "../VampUtilities/VampProvider";
-import makeGrid from "../makeGrid";
 
 const ToneContext = React.createContext();
 const ToneUpdateContext = React.createContext();
@@ -18,43 +17,36 @@ export const useToneUpdate = () => {
 const ToneProvider = ({ children }) => {
   const [isActivated, setIsActivated] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [beat, setBeat] = useState(0);
-  const [synths, setSynths] = useState([...makeSynths(Tone)]);
-  const toneRef = useRef(Tone).current
+  const beat = useRef(0);
+  const synths = useSynths()
   const [tempo, setTempo] = useState(120);
+  const [volume, setVolume] = useState(parseFloat(-20));
   const vamp = useVamp();
 
-  const toneConfig = (repeat, tempo) => {
-    Tone.Transport.bpm.value = tempo;
-    Tone.Transport.scheduleRepeat(repeat, "8n");
-  };
-
   const togglePlay = () => {
-    console.log(synths)
     if (!isActivated) {
-      Tone.start().then(() => {
-        setIsActivated(true);
-        toneConfig(repeat, tempo)
-      })
+      Tone.start();
+      Tone.Transport.bpm.value = tempo;
+      Tone.Transport.scheduleRepeat(repeat, "8n");
+      Tone.getDestination().volume.rampTo(volume, 0.001);
+      setIsActivated(true);
     }
-    if (isPlaying) {
-      Tone.Transport.stop();
-    } else {
-      Tone.Transport.start();
-    }
-
-    setIsPlaying((prevState) => !prevState);
+    isPlaying ? Tone.Transport.stop() : Tone.Transport.start()
+    setIsPlaying(prevState => !prevState);
   };
 
-  const repeat = (time) => {
-    vamp.forEach((row, index) => {
-      let tone = row[beat];
-      if (tone.isActive) {
-        synths[index].triggerAttackRelease(tone.pitch, "8n", time);
-      }
-      setBeat(prevState => ((prevState + 1) % 16));
-    });
-  };
+  const repeat = useCallback(
+    (time) => {
+      vamp.current.forEach((row, index) => {
+        let tone = row[beat.current];
+        if (tone.isActive) {
+          synths[index].triggerAttackRelease(tone.pitch, "8n", time);
+        }
+      });
+      beat.current = (beat.current + 1) % 16;
+    },
+    [synths, vamp]
+  );
 
   return (
     <ToneContext.Provider value={Tone}>
