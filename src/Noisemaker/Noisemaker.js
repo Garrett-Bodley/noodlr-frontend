@@ -1,12 +1,6 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import styled from 'styled-components';
-import { color, grid, layout, space } from 'styled-system';
-
-import Note from "./Note";
-import makeSynths from "../utilities/SynthUtilities/makeSynths";
-import makeGrid from "../utilities/makeGrid";
-import gridColors from "../utilities/gridColors";
-import classNames from "classnames/bind";
+import { grid, layout, space } from 'styled-system';
 
 import AspectRatioContainer from "../utilities/AspectRatio/AspectRatioContainer";
 import Grid from './Grid'
