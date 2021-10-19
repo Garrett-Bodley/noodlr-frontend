@@ -1,7 +1,7 @@
 import React, { useContext, useCallback, useRef, useState } from "react";
 import * as Tone from "tone";
-import useSynths from "../useSynths"
-import { useVamp } from "../VampUtilities/VampProvider";
+import useSynths from "./useSynths"
+import { useVamp } from "./VampProvider";
 
 const ToneContext = React.createContext();
 const ToneUpdateContext = React.createContext();
