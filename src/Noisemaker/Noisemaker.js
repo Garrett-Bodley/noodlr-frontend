@@ -1,23 +1,17 @@
 import React from "react";
 import styled from 'styled-components';
+import "./Noisemaker.css";
 import { grid, layout, space } from 'styled-system';
-
-import AspectRatioContainer from "../utilities/AspectRatio/AspectRatioContainer";
 import Grid from './Grid'
 import Controls from './Controls/Controls'
-import VampProvider from "../utilities/VampUtilities/VampProvider";
+import VampProvider from "../utilities/VampProvider";
 
-import "./Noisemaker.css";
-import ToneProvider from "../utilities/SynthUtilities/ToneContext";
+import ToneProvider from "../utilities/ToneContext";
 
 const Container = styled.section`
   ${grid};
   ${layout}
   ${space}
-`
-const Aspect = styled(AspectRatioContainer)`
-  ${grid}
-  ${space};
 `
 
 const StyledGrid = styled(Grid)`
@@ -60,5 +54,7 @@ export default Noisemaker;
 //    e. Share button
 //  3. Figure out responsive design.
 //  4. Fix landscape view for mobile
+
+// STRETCH
 //  5. Refactor so Noisemaker can accept alternate notes/number of beats
 //  6. Focus states for tones.
