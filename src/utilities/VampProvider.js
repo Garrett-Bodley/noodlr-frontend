@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from "react";
-import makeGrid from "../makeGrid";
+import makeGrid from "./makeGrid";
 
 const VampContext = React.createContext();
 const VampUpdateContext = React.createContext();
