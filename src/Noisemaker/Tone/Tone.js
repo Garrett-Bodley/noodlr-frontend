@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { border, color, layout, position, space } from "styled-system";
-import AspectRatioContainer from "../../utilities/AspectRatio/AspectRatioContainer";
-import { useVampUpdate } from "../../utilities/VampUtilities/VampProvider";
+import AspectRatioContainer from "../../utilities/AspectRatioContainer";
+import { useVampUpdate } from "../../utilities/VampProvider";
 
 const Button = styled.button`
   ${border};
