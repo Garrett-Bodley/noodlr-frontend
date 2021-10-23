@@ -4,15 +4,35 @@ import useSynths from "./useSynths"
 import { useVamp } from "./VampProvider";
 
 const ToneContext = React.createContext();
-const ToneUpdateContext = React.createContext();
+const PlayPauseContext = React.createContext();
+const VolumeContext = React.createContext()
+const VolumeUpdateContext = React.createContext()
+const TempoContext = React.createContext()
+const TempoUpdateContext = React.createContext()
 
 export const useTone = () => {
   return useContext(ToneContext);
 };
 
-export const useToneUpdate = () => {
-  return useContext(ToneUpdateContext);
+export const usePlayPause = () => {
+  return useContext(PlayPauseContext);
 };
+
+export const useTempo = () => {
+  return useContext(TempoContext)
+}
+
+export const useTempoUpdate = () => {
+  return useContext(TempoUpdateContext)
+}
+
+export const useVolume = () => {
+  return useContext(VolumeContext)
+}
+
+export const useVolumeUpdate = () => {
+  return useContext(VolumeUpdateContext)
+}
 
 const ToneProvider = ({ children }) => {
   const [isActivated, setIsActivated] = useState(false);
@@ -48,11 +68,29 @@ const ToneProvider = ({ children }) => {
     [synths, vamp]
   );
 
+  const updateTempo = (tempo) => {
+    setTempo(tempo)
+    Tone.Transport.bpm.rampTo(tempo, 0.1)
+  }
+
+  const updateVolume = (volume) => {
+    setVolume(volume)
+    Tone.getDestination().volume.rampTo(volume, 0.001)
+  }
+
   return (
     <ToneContext.Provider value={Tone}>
-      <ToneUpdateContext.Provider value={togglePlay}>
-        {children}
-      </ToneUpdateContext.Provider>
+      <PlayPauseContext.Provider value={togglePlay}>
+        <TempoContext.Provider value={tempo}>
+          <TempoUpdateContext.Provider value={updateTempo} >
+            <VolumeContext.Provider value={volume}>
+              <VolumeUpdateContext.Provider value={updateVolume}>
+                {children}
+              </VolumeUpdateContext.Provider>
+            </VolumeContext.Provider>
+          </TempoUpdateContext.Provider>
+        </TempoContext.Provider>
+      </PlayPauseContext.Provider>
     </ToneContext.Provider>
   );
 };
