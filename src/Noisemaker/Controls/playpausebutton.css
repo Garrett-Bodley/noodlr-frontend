@@ -1,0 +1,95 @@
+.button-wrapper,
+.button-wrapper * {
+  -webkit-tap-highlight-color: transparent;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+}
+
+.button-wrapper {
+  display: inline-block;
+  margin: 1em;
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+  /* border-bottom: 1px solid black; */
+}
+
+.button-wrapper:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background-color: hsla(0, 2%, 30%, 0.5);
+  will-change: transform, scale;
+}
+
+.edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    to left,
+    hsla(0, 2%, 40%, 1) 0%,
+    hsla(0, 2%, 55%, 1) 10%,
+    hsla(0, 2%, 55%, 1) 90%,
+    hsla(0, 2%, 40%, 1) 100%
+  );
+  will-change: transform, scale;
+}
+
+.front {
+  display: block;
+  position: relative;
+  padding: 1.5em 4em;
+  border-radius: 12px;
+  background: hsl(0, 0%, 83%);
+  border: 1px solid hsla(0, 2%, 55%, 1);
+  will-change: transform, scale;
+  overflow: hidden;
+}
+
+/* .button-wrapper:hover:not(:active) .front {
+  filter: brightness(110%);
+}
+
+.button-wrapper:hover:not(:active) .edge {
+  filter: brightness(110%);
+} */
+
+.inner-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 11px;
+  box-shadow: inset 2px 2px 2px 1px hsla(0, 2%, 30%, 0.5);
+  opacity: 0%;
+  will-change: opacity;
+}
+
+.playpause-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inset: 0;
+  will-change: transform;
+}
+
+.playpause-icon svg {
+  width: 2em;
+  opacity: 100%;
+}
