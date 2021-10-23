@@ -6,7 +6,7 @@ import Grid from './Grid'
 import Controls from './Controls/Controls'
 import VampProvider from "../utilities/VampProvider";
 
-import ToneProvider from "../utilities/ToneContext";
+import ToneProvider from "../utilities/ToneProvider";
 
 const Container = styled.section`
   ${grid};
@@ -24,9 +24,9 @@ const Noisemaker = (props) => {
   return (
     <VampProvider>
       <ToneProvider>
-        <Container {...props} margin="auto" display="grid" gridTemplateColumns="4fr 1fr" gridTemplateAreas={' "tones controls" '}>
-            <StyledGrid gridArea="tones" rowCount={9} beatCount={16} p="2em" colors={{primary: '#38CC77', secondary: '#DE4839'}} />
-          <Controls gridArea="controls" bg="slategray" />
+        <Container {...props} mx="1em" display="grid" gridTemplateColumns="4fr 2fr" gridTemplateAreas={' "tones controls" '}>
+            <StyledGrid gridArea="tones" rowCount={9} beatCount={16} p="1em" colors={{primary: '#38CC77', secondary: '#DE4839'}} />
+          <Controls gridArea="controls"/>
         </Container>
       </ToneProvider>
     </VampProvider>
