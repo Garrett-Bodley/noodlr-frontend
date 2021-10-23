@@ -17,9 +17,9 @@ const Key = ({ note, trigger, handleOnClick, hidden, color, handleMouseDown, han
   if(hidden === true){
     return(
       <label className="pushable" style={ { visibility: 'hidden' } } draggable={ false }>
-        <span className="shadow" style={ { visibility: 'hidden' } } draggable={ false }></span>
-        <span className="edge" style={ { visibility: 'hidden' } } draggable={ false }></span>
-        <span className="front" style={ { visibility: 'hidden' } } draggable={ false }></span>
+        <span className="shadow--key" style={ { visibility: 'hidden' } } draggable={ false }></span>
+        <span className="edge--key" style={ { visibility: 'hidden' } } draggable={ false }></span>
+        <span className="front--key" style={ { visibility: 'hidden' } } draggable={ false }></span>
       </label>
     )
   }else{

@@ -9,7 +9,7 @@
   outline-offset: 4px;
   transition: filter 250ms;
 }
-.shadow {
+.shadow--key {
   position: absolute;
   top: 0;
   left: 0;
@@ -25,7 +25,7 @@
     cubic-bezier(.3, .7, .4, 1);
 }
 
-.edge {
+.edge--key {
   position: absolute;
   top: 0;
   left: 0;
@@ -34,7 +34,7 @@
   border-radius: 12px;
 }
 
-.front {
+.front--key {
   display: flex;
   align-items: center;
   justify-content: center;
