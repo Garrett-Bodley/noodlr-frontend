@@ -49,9 +49,9 @@ export default Noisemaker;
 //      2̶.̶ T̶o̶g̶g̶l̶e̶ n̶o̶t̶e̶s̶ u̶s̶i̶n̶g̶ c̶o̶n̶t̶e̶x̶t̶
 //    e. Figure out how to display which beat is active.
 //  2. Stub out basic controls component.
-//    a. Start/Stop button
-//    b. Tempo Slider
-//    c. Volume Slider
+//    a̶.̶ S̶t̶a̶r̶t̶/̶S̶t̶o̶p̶ b̶u̶t̶t̶o̶n̶
+//    b̶.̶ T̶e̶m̶p̶o̶ S̶l̶i̶d̶e̶r̶
+//    c̶.̶ V̶o̶l̶u̶m̶e̶ S̶l̶i̶d̶e̶r̶
 //    d. Save Button (****ONLY WHEN LOGGED IN****)
 //    e. Share button
 //  3. Figure out responsive design.
