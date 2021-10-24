@@ -38,6 +38,7 @@ const ToneProvider = ({ children }) => {
   const [isActivated, setIsActivated] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const beat = useRef(0);
+  const [beatMirror, setBeatMirror] = useState(0)
   const synths = useSynths()
   const [tempo, setTempo] = useState(120);
   const [volume, setVolume] = useState(parseFloat(-20));
@@ -64,6 +65,7 @@ const ToneProvider = ({ children }) => {
         }
       });
       beat.current = (beat.current + 1) % 16;
+      setBeatMirror(beat.current)
     },
     [synths, vamp]
   );
