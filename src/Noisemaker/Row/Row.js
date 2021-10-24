@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { layout, space, grid } from "styled-system";
-
 import Tone from "../Tone/Tone";
 
 const StyledRow = styled.div`
@@ -23,7 +22,7 @@ const Row = ({ beatCount, color, rowNum }) => {
       height="100%"
       width="100%"
       gridTemplateColumns={`repeat(${beatCount}, 1fr)`}
-      gridGap="4px"
+      gridGap="2px"
     >
       {displayTones(beatCount, color)}
     </StyledRow>
