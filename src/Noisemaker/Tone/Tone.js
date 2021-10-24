@@ -17,7 +17,7 @@ const Button = styled.button`
     position: absolute;
     inset: 0;
     border: none;
-    border-radius: 3px;
+    border-radius: 2px;
     background-color: ${(props) => props.activeColor || "#38CC77"};
     box-shadow: 
       inset 0.6px 0.1px 0.3px rgba(20, 31, 25, 0.36),
@@ -35,7 +35,7 @@ const Button = styled.button`
     position: absolute;
     inset: 0;
     border: none;
-    border-radius: 3px;
+    border-radius: 2px;
     background-color: lightgray;
     box-shadow: 
       0.1px 0.1px 0.3px rgba(0, 0, 0, 0.238),
@@ -71,7 +71,7 @@ const Tone = (props) => {
         border="1px solid black"
         bg="lightgray"
         activeColor={color}
-        borderRadius="4px"
+        borderRadius="3px"
         p="0"
       />
     </AspectRatioContainer>
