@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { grid, layout } from "styled-system";
-
+import LightRow from "./LightRow"
 import Row from './Row/Row'
 
 const Article = styled.article`
@@ -25,9 +25,10 @@ const Grid = (props) => {
       width="100%"
       height="100%"
       display="grid"
-      gridTemplateRows={`repeat(${rowCount}, 1fr)`}
-      gridGap="4px"
+      gridTemplateRows={`repeat(${rowCount + 1}, 1fr)`}
+      gridGap="2px"
     >
+      <LightRow beatCount={beatCount} />
       {renderRows(rowCount, beatCount)}
     </Article>
   );
