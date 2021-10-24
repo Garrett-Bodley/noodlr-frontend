@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@600&family=VT323&display=swap');
+
+.controls {
+  color: #faebd7
+}
+
+.controls-label{
+  font-family: 'Roboto Mono', monospace;
+  font-size: 18px;
+  letter-spacing: 1vw;
+}
