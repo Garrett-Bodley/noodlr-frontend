@@ -27,8 +27,7 @@ const PlayPauseButton = () => {
 
   const parseConfig = useCallback(() => {
     if (isActive) return config.stiff;
-    if (isPressed) return { friction: 40, tension: 250 };
-    if (isHovered) return config.wobbly;
+    if (isPressed || isHovered) return config.wobbly;
     return { friction: 50, tension: 250 };
   }, [isHovered, isPressed, isActive]);
 
