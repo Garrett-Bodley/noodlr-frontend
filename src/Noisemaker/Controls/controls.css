@@ -1,11 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@600&family=VT323&display=swap');
 
 .controls {
-  color: #faebd7
+  color: #faebd7;
+  fill: #faebd7
 }
 
 .controls-label{
+  width: max-content;
   font-family: 'Roboto Mono', monospace;
   font-size: 18px;
   letter-spacing: 1vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(5px);
+}
+
+.icon {
+  stroke: #faebd7;
+  stroke-width: 1.5px;
+  height: 2em;
+  width: 2.5em;
+  padding-right: 1em;
+}
+
+.icon-metronome{
+  transform: translateX(-.75em)
+}
+
+.controls-label svg {
+  justify-self: flex-start;
 }
