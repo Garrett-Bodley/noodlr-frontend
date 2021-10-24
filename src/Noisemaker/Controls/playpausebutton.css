@@ -6,6 +6,7 @@
 }
 
 .button-wrapper {
+  max-width: 90%;
   display: inline-block;
   margin: 1em;
   position: relative;
@@ -28,7 +29,7 @@
   width: 100%;
   height: 100%;
   border-radius: 12px;
-  background-color: hsla(0, 2%, 30%, 0.5);
+  background-color: hsla(0, 2%, 10%, 0.5);
   will-change: transform, scale;
 }
 
@@ -52,7 +53,7 @@
 .front {
   display: block;
   position: relative;
-  padding: 1.5em 4em;
+  padding: 1.5em 8em;
   border-radius: 12px;
   background: hsl(0, 0%, 83%);
   border: 1px solid hsla(0, 2%, 55%, 1);
@@ -75,7 +76,7 @@
   width: 100%;
   height: 100%;
   border-radius: 11px;
-  box-shadow: inset 2px 2px 2px 1px hsla(0, 2%, 30%, 0.5);
+  box-shadow: inset 1px 1px 2px 1px hsla(0, 2%, 30%, 0.5);
   opacity: 0%;
   will-change: opacity;
 }
@@ -92,4 +93,10 @@
 .playpause-icon svg {
   width: 2em;
   opacity: 100%;
+}
+
+path {
+  stroke: hsl(0, 0%, 60%, 1);
+  stroke-width: .5px;
+  stroke-linejoin: round;
 }
