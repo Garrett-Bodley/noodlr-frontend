@@ -1,4 +1,5 @@
 import React from "react";
+import "./controls.css"
 import styled from "styled-components";
 import { border, color, flexbox, grid, space, typography, layout } from "styled-system";
 import { VideoPlayPause } from "@styled-icons/fluentui-system-filled/VideoPlayPause";
@@ -23,6 +24,13 @@ const StyledPlayPause = styled(VideoPlayPause)`
 `;
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 17em;
+
   ${border};
   ${flexbox};
   ${layout};
@@ -32,38 +40,37 @@ const Container = styled.div`
 
 const Controls = (props) => {
 
-  const tempo = useTempo()
-  const updateTempo = useTempoUpdate()
-  const volume = useVolume()
-  const updateVolume = useVolumeUpdate()
+  const [tempo, setTempo] = useTempo()
+  const [volume, setVolume] = useVolume()
 
   const handleTempoChange = (e) => {
-    updateTempo(parseFloat(e.target.value))
+    setTempo(parseFloat(e.target.value))
   }
 
   const handleVolumeChange = (e) => {
-    updateVolume(e.target.value === "0" ? -Infinity : e.target.value - 45)
+    setVolume(e.target.value === "0" ? -Infinity : e.target.value - 45)
   }
 
   return (
     <Article
-      bg="#f8f8ff"
       {...props}
+      className="controls"
       display="flex"
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
       gridTemplateColumns=""
-      borderRadius="3px"
-      my="1em"
-      border="1px solid black"
+      borderRadius="8px"
+      m="1em"
+      maxWidth="20em"
+      border="1px solid #faebd7"
     >
-      <Container display="flex" alignItems="center" justifyContent="center" width="100%">
-        <MetronomeIcon className="icon" fill="grey" strokeWidth="5px" />
-        <Range eventHandler={handleTempoChange} min={60} max={180} value={tempo} />
+      <Container>
+          <span className="controls-label">TEMPO</span>
+          <Range eventHandler={handleTempoChange} min={60} max={180} value={tempo} />
       </Container>
-      <Container display="flex" textAlign="left" alignItems="center" justifyContent="center" width="100%">
-        <VolumeIcon className="icon"/>
+      <Container>
+        <span className="controls-label">VOLUME</span>
         <Range eventHandler={handleVolumeChange} min={0} max={50} value={volume === -Infinity ? 0 : volume + 45} />
       </Container>
       <PlayPauseButton/>
