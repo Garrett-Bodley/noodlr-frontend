@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useRef, useState } from "react";
+import React, { useContext, useCallback, useEffect, useRef, useState } from "react";
 import * as Tone from "tone";
 import useSynths from "./useSynths"
 import { useVamp } from "./VampProvider";
@@ -9,6 +9,7 @@ const VolumeContext = React.createContext()
 const VolumeUpdateContext = React.createContext()
 const TempoContext = React.createContext()
 const TempoUpdateContext = React.createContext()
+const BeatContext = React.createContext()
 
 export const useTone = () => {
   return useContext(ToneContext);
@@ -22,16 +23,12 @@ export const useTempo = () => {
   return useContext(TempoContext)
 }
 
-export const useTempoUpdate = () => {
-  return useContext(TempoUpdateContext)
-}
-
 export const useVolume = () => {
   return useContext(VolumeContext)
 }
 
-export const useVolumeUpdate = () => {
-  return useContext(VolumeUpdateContext)
+export const useBeat = () => {
+  return useContext(BeatContext)
 }
 
 const ToneProvider = ({ children }) => {
@@ -83,14 +80,12 @@ const ToneProvider = ({ children }) => {
   return (
     <ToneContext.Provider value={Tone}>
       <PlayPauseContext.Provider value={togglePlay}>
-        <TempoContext.Provider value={tempo}>
-          <TempoUpdateContext.Provider value={updateTempo} >
-            <VolumeContext.Provider value={volume}>
-              <VolumeUpdateContext.Provider value={updateVolume}>
-                {children}
-              </VolumeUpdateContext.Provider>
+        <TempoContext.Provider value={[tempo, updateTempo]}>
+            <VolumeContext.Provider value={[volume, updateVolume]}>
+                <BeatContext.Provider value={beatMirror}>
+                  {children}
+                </BeatContext.Provider>
             </VolumeContext.Provider>
-          </TempoUpdateContext.Provider>
         </TempoContext.Provider>
       </PlayPauseContext.Provider>
     </ToneContext.Provider>
