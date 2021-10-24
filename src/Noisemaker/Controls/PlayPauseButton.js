@@ -117,6 +117,11 @@ const PlayPauseButton = () => {
     config: parseConfig()
   });
 
+  const buttonIconProps = useSpring({
+    from: {color: "grey"},
+    to: {color: isPressed ? "#38CC77" : "grey"},
+  })
+
   return (
     <label
       onMouseEnter={startHover}
@@ -142,7 +147,7 @@ const PlayPauseButton = () => {
         ></animated.span>
       </animated.span>
       <animated.div style={iconProps} className="playpause-icon">
-        <StyledPlayPause />
+        <StyledPlayPause style={buttonIconProps} />
       </animated.div>
     </label>
   );
