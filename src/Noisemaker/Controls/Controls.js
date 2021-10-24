@@ -66,11 +66,11 @@ const Controls = (props) => {
       border="1px solid #faebd7"
     >
       <Container>
-          <span className="controls-label">TEMPO</span>
+          <span className="controls-label"><MetronomeIcon className="icon icon-metronome"/>TEMPO</span>
           <Range eventHandler={handleTempoChange} min={60} max={180} value={tempo} />
       </Container>
       <Container>
-        <span className="controls-label">VOLUME</span>
+        <span className="controls-label"><VolumeIcon className="icon icon-volume"/> VOLUME</span>
         <Range eventHandler={handleVolumeChange} min={0} max={50} value={volume === -Infinity ? 0 : volume + 45} />
       </Container>
       <PlayPauseButton/>
