@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 import "./Noisemaker.css";
-import { grid, layout, space } from 'styled-system';
+import { border, color, grid, layout, space } from 'styled-system';
 import Grid from './Grid'
 import Controls from './Controls/Controls'
 import VampProvider from "../utilities/VampProvider";
@@ -9,6 +9,8 @@ import VampProvider from "../utilities/VampProvider";
 import ToneProvider from "../utilities/ToneProvider";
 
 const Container = styled.section`
+  ${border}
+  ${color}
   ${grid};
   ${layout}
   ${space}
@@ -24,8 +26,8 @@ const Noisemaker = (props) => {
   return (
     <VampProvider>
       <ToneProvider>
-        <Container {...props} mx="1em" display="grid" gridTemplateColumns="4fr 2fr" gridTemplateAreas={' "tones controls" '}>
-            <StyledGrid gridArea="tones" rowCount={9} beatCount={16} p="1em" colors={{primary: '#38CC77', secondary: '#DE4839'}} />
+        <Container className="noisemaker" {...props} bg="#3b3c36" mx="1em" borderRadius="12px" display="grid" gridTemplateColumns="4fr 2fr" gridTemplateAreas={' "tones controls" '}>
+            <StyledGrid gridArea="tones" rowCount={9} beatCount={16} p=".5em 1em 1em 1em" colors={{primary: '#38CC77', secondary: '#DE4839'}} />
           <Controls gridArea="controls"/>
         </Container>
       </ToneProvider>
